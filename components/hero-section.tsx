@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export function HeroSection() {
   return (
-    <section className="relative w-full h-[80vh] min-h-[600px] overflow-hidden">
+    <section className="relative w-full h-[85vh] min-h-[650px] overflow-hidden">
       {/* Background Image - positioned to crop out top gibberish */}
       <div className="absolute inset-0">
         <Image
@@ -18,39 +18,40 @@ export function HeroSection() {
         <div className="absolute top-0 left-0 right-0 h-[200px] bg-[#0a0a0f]" />
         
         {/* Gradient fade from solid bar into image */}
-        <div className="absolute top-[180px] left-0 right-0 h-[100px] bg-gradient-to-b from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent" />
+        <div className="absolute top-[180px] left-0 right-0 h-[120px] bg-gradient-to-b from-[#0a0a0f] via-[#0a0a0f]/70 to-transparent" />
         
         {/* Bottom fade to cards */}
-        <div className="absolute bottom-0 left-0 right-0 h-[180px] bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/90 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/90 to-transparent" />
         
         {/* Side vignettes */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(10,10,15,0.8)_100%)]" />
       </div>
 
-      {/* TOP HEADER BAR - Mission & Quote */}
-      <div className="absolute top-0 left-0 right-0 z-20 bg-[#0a0a0f] px-4 md:px-8 py-6">
+      {/* TOP HEADER BAR - Mission & Quote - MORE VISIBLE */}
+      <div className="absolute top-0 left-0 right-0 z-20 bg-[#0a0a0f] border-b border-teal/20 px-4 md:px-8 py-5">
         <div className="max-w-7xl mx-auto">
           {/* Desktop Layout */}
           <div className="hidden md:flex items-center justify-between">
             {/* Left: Logo */}
             <Link href="/about" className="group flex-shrink-0" title="My Story">
-              <div className="relative w-16 h-16 lg:w-20 lg:h-20 transition-transform duration-300 group-hover:scale-110">
+              <div className="relative w-14 h-14 lg:w-16 lg:h-16 transition-transform duration-300 group-hover:scale-110">
                 <Image
                   src="/images/metatron-logo.png"
                   alt="Metatron's Cube"
                   fill
                   className="object-contain drop-shadow-[0_0_15px_rgba(0,206,209,0.7)]"
                 />
+                <div className="absolute inset-[-4px] rounded-full border border-teal/40 animate-pulse" style={{ animationDuration: '3s' }} />
               </div>
             </Link>
 
-            {/* Center: Quote */}
-            <div className="text-center flex-1 px-6 lg:px-12">
-              <p className="text-sm lg:text-base font-light italic text-foreground/80 tracking-wide leading-relaxed">
+            {/* Center: Quote - BRIGHTER */}
+            <div className="text-center flex-1 px-8 lg:px-16">
+              <p className="text-base lg:text-lg font-light italic text-foreground tracking-wide leading-relaxed">
                 "The impediment to action advances action.
-                <span className="block">What stands in the way becomes the way."</span>
+                <span className="block mt-1">What stands in the way becomes the way."</span>
               </p>
-              <p className="text-xs text-teal mt-2 tracking-[0.3em] uppercase">Marcus Aurelius</p>
+              <p className="text-sm text-teal mt-3 tracking-[0.3em] uppercase font-medium">— Marcus Aurelius</p>
             </div>
 
             {/* Right: Protocol Status */}
@@ -60,16 +61,16 @@ export function HeroSection() {
                 <span className="text-sm font-mono text-teal tracking-wider">METATRON v7.4</span>
               </div>
               <p className="text-xs text-muted-foreground mt-1 tracking-wider">14 GATES • 36 MODES</p>
-              <p className="text-xs text-gold/80 mt-1 tracking-wider font-mono">SYSTEMS ONLINE</p>
+              <p className="text-xs text-gold mt-1 tracking-wider font-mono">SYSTEMS ONLINE</p>
             </div>
           </div>
 
           {/* Mobile Layout */}
           <div className="md:hidden">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-3">
               {/* Logo */}
               <Link href="/about" className="group">
-                <div className="relative w-12 h-12 transition-transform duration-300 group-hover:scale-110">
+                <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
                   <Image
                     src="/images/metatron-logo.png"
                     alt="Metatron's Cube"
@@ -88,11 +89,11 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* Quote */}
-            <p className="text-xs font-light italic text-foreground/70 text-center leading-relaxed">
+            {/* Quote - Mobile */}
+            <p className="text-sm font-light italic text-foreground/90 text-center leading-relaxed">
               "What stands in the way becomes the way."
             </p>
-            <p className="text-[10px] text-teal/70 text-center mt-1 tracking-[0.2em] uppercase">Marcus Aurelius</p>
+            <p className="text-xs text-teal text-center mt-2 tracking-[0.2em] uppercase">— Marcus Aurelius</p>
           </div>
         </div>
       </div>
@@ -122,8 +123,8 @@ export function HeroSection() {
         <div className="absolute top-[55%] right-[25%] w-16 h-px bg-gradient-to-r from-transparent via-teal/25 to-transparent animate-pulse" style={{ animationDuration: '2.5s', animationDelay: '1.2s' }} />
       </div>
 
-      {/* Main Title - Centered lower */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pt-24 md:pt-20">
+      {/* Main Title - Centered */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pt-28 md:pt-24">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] text-gold text-center drop-shadow-[0_0_50px_rgba(212,175,55,0.5)] px-4">
           ASHES2ECHOES
         </h1>
@@ -132,10 +133,10 @@ export function HeroSection() {
         </p>
         
         {/* Tagline */}
-        <div className="mt-8 flex items-center gap-4 text-xs sm:text-sm text-teal/70">
-          <span className="w-6 sm:w-10 h-px bg-gradient-to-r from-transparent to-teal/50" />
+        <div className="mt-8 flex items-center gap-4 text-xs sm:text-sm text-teal">
+          <span className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent to-teal/60" />
           <span className="tracking-[0.15em] sm:tracking-[0.2em] uppercase font-light">Discipline Over Hype</span>
-          <span className="w-6 sm:w-10 h-px bg-gradient-to-l from-transparent to-teal/50" />
+          <span className="w-8 sm:w-12 h-px bg-gradient-to-l from-transparent to-teal/60" />
         </div>
       </div>
 
