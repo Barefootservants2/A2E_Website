@@ -6,7 +6,7 @@ export function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/angel-hero.png"
+          src="/images/angel-hero.jpg"
           alt="Angelic figure with crystalline teal wings"
           fill
           className="object-cover object-center"
@@ -20,7 +20,7 @@ export function HeroSection() {
       <div className="absolute top-6 left-6 z-10">
         <div className="relative w-16 h-16 md:w-20 md:h-20 drop-shadow-[0_0_15px_rgba(0,206,209,0.6)]">
           <Image
-            src="/images/metatrons-cube.png"
+            src="/images/metatron-logo.png"
             alt="Metatron's Cube - Ashes2Echoes Logo"
             fill
             className="object-contain brightness-110 contrast-110 [filter:drop-shadow(0_0_8px_rgba(0,206,209,0.5))_hue-rotate(160deg)_saturate(1.5)]"
