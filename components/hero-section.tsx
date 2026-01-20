@@ -27,7 +27,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(10,10,15,0.8)_100%)]" />
       </div>
 
-      {/* TOP HEADER BAR - Mission & Quote - MORE VISIBLE */}
+      {/* TOP HEADER BAR - Mission & Quote */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-[#0a0a0f] border-b border-teal/20 px-4 md:px-8 py-5">
         <div className="max-w-7xl mx-auto">
           {/* Desktop Layout */}
@@ -45,7 +45,7 @@ export function HeroSection() {
               </div>
             </Link>
 
-            {/* Center: Quote - BRIGHTER */}
+            {/* Center: Quote */}
             <div className="text-center flex-1 px-8 lg:px-16">
               <p className="text-base lg:text-lg font-light italic text-foreground tracking-wide leading-relaxed">
                 &quot;The impediment to action advances action.
@@ -68,7 +68,6 @@ export function HeroSection() {
           {/* Mobile Layout */}
           <div className="md:hidden">
             <div className="flex items-center justify-between mb-3">
-              {/* Logo */}
               <Link href="/about" className="group">
                 <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
                   <Image
@@ -79,8 +78,6 @@ export function HeroSection() {
                   />
                 </div>
               </Link>
-
-              {/* Status */}
               <div className="text-right">
                 <div className="flex items-center gap-1.5 justify-end">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
@@ -88,8 +85,6 @@ export function HeroSection() {
                 </div>
               </div>
             </div>
-
-            {/* Quote - Mobile */}
             <p className="text-sm font-light italic text-foreground/90 text-center leading-relaxed">
               &quot;What stands in the way becomes the way.&quot;
             </p>
@@ -98,7 +93,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Energy particles - STATIC positions to avoid hydration */}
+      {/* Energy particles - STATIC positions */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute w-1.5 h-1.5 bg-teal rounded-full animate-pulse" style={{ left: '15%', top: '45%', animationDelay: '0s', opacity: 0.6 }} />
         <div className="absolute w-1 h-1 bg-teal rounded-full animate-pulse" style={{ left: '25%', top: '50%', animationDelay: '0.5s', opacity: 0.5 }} />
@@ -120,20 +115,40 @@ export function HeroSection() {
         <div className="absolute top-[55%] right-[25%] w-16 h-px bg-gradient-to-r from-transparent via-teal/25 to-transparent animate-pulse" style={{ animationDuration: '2.5s', animationDelay: '1.2s' }} />
       </div>
 
-      {/* Main Title - Centered */}
+      {/* Main Title - Centered - HEAVY BOLD WITH STRONG GLOW */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pt-28 md:pt-24">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] text-gold text-center drop-shadow-[0_0_50px_rgba(212,175,55,0.5)] px-4">
+        {/* Title - font-black with intense multi-layer glow */}
+        <h1 
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[0.15em] sm:tracking-[0.2em] text-[#FFD700] text-center px-4"
+          style={{ 
+            textShadow: '0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 40px rgba(255,215,0,0.8), 0 0 80px rgba(255,215,0,0.5), 0 4px 8px rgba(0,0,0,0.9), 0 8px 16px rgba(0,0,0,0.7)' 
+          }}
+        >
           ASHES2ECHOES
         </h1>
-        <p className="mt-3 text-sm sm:text-base md:text-lg lg:text-xl font-light tracking-[0.1em] sm:tracking-[0.15em] text-foreground/80 text-center">
+        
+        {/* Subtitle - bright white, bold */}
+        <p 
+          className="mt-4 text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-[0.1em] sm:tracking-[0.15em] text-white text-center"
+          style={{ 
+            textShadow: '0 0 10px rgba(255,255,255,0.9), 0 0 30px rgba(0,206,209,0.7), 0 0 50px rgba(0,206,209,0.5), 0 3px 6px rgba(0,0,0,0.9)' 
+          }}
+        >
           The Uriel Covenant AI Collective
         </p>
         
-        {/* Tagline */}
-        <div className="mt-8 flex items-center gap-4 text-xs sm:text-sm text-teal">
-          <span className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent to-teal/60" />
-          <span className="tracking-[0.15em] sm:tracking-[0.2em] uppercase font-light">Discipline Over Hype</span>
-          <span className="w-8 sm:w-12 h-px bg-gradient-to-l from-transparent to-teal/60" />
+        {/* Tagline - bright teal with glow */}
+        <div className="mt-8 flex items-center gap-4 text-sm sm:text-base">
+          <span className="w-10 sm:w-16 h-0.5 bg-gradient-to-r from-transparent to-teal rounded" />
+          <span 
+            className="tracking-[0.2em] sm:tracking-[0.25em] uppercase font-bold text-[#00FFFF]"
+            style={{ 
+              textShadow: '0 0 10px #00FFFF, 0 0 20px rgba(0,255,255,0.8), 0 0 40px rgba(0,255,255,0.5), 0 2px 4px rgba(0,0,0,0.9)' 
+            }}
+          >
+            Discipline Over Hype
+          </span>
+          <span className="w-10 sm:w-16 h-0.5 bg-gradient-to-l from-transparent to-teal rounded" />
         </div>
       </div>
 
