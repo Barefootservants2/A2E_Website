@@ -65,24 +65,43 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Main Title - NO BOX, TEAL TEXT LIKE METATRON CARD */}
+      {/* Main Title */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pt-28 md:pt-24">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[0.15em] sm:tracking-[0.2em] text-center px-4 text-[#FFD700] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+        {/* ASHES2ECHOES - Original extralight font with wide tracking */}
+        <h1 
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight tracking-[0.2em] sm:tracking-[0.3em] text-center px-4"
+          style={{ 
+            color: '#FFD700',
+            textShadow: '0 0 30px rgba(212,175,55,0.5), 0 2px 4px rgba(0,0,0,0.8)'
+          }}
+        >
           ASHES2ECHOES
         </h1>
         
-        {/* Subtitle - TEAL like METATRON card header */}
-        <p className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-[0.15em] text-center uppercase text-[#00CED1] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+        {/* Subtitle - TEAL with white outline */}
+        <p 
+          className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-[0.15em] text-center uppercase"
+          style={{ 
+            color: '#00CED1',
+            textShadow: '-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 10px rgba(0,206,209,0.5), 0 2px 4px rgba(0,0,0,0.8)'
+          }}
+        >
           The Uriel Covenant AI Collective
         </p>
         
-        {/* Tagline - WHITE BOLD */}
+        {/* Tagline - TEAL with white outline */}
         <div className="mt-6 flex items-center justify-center gap-4 text-base sm:text-lg">
-          <span className="w-12 sm:w-20 h-px bg-white/60" />
-          <span className="tracking-[0.2em] uppercase font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+          <span className="w-12 sm:w-20 h-px bg-teal" />
+          <span 
+            className="tracking-[0.2em] uppercase font-bold"
+            style={{ 
+              color: '#00CED1',
+              textShadow: '-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 10px rgba(0,206,209,0.5), 0 2px 4px rgba(0,0,0,0.8)'
+            }}
+          >
             Discipline Over Hype
           </span>
-          <span className="w-12 sm:w-20 h-px bg-white/60" />
+          <span className="w-12 sm:w-20 h-px bg-teal" />
         </div>
       </div>
 
