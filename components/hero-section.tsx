@@ -33,9 +33,9 @@ export function HeroSection() {
             <div className="text-right flex-shrink-0">
               <div className="flex items-center gap-2 justify-end">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-sm font-mono text-teal tracking-wider">METATRON v7.4</span>
+                <span className="text-sm font-mono text-teal tracking-wider">METATRON v7.6</span>
               </div>
-              <p className="text-xs text-muted-foreground mt-1 tracking-wider">14 GATES - 36 MODES</p>
+              <p className="text-xs text-muted-foreground mt-1 tracking-wider">15 GATES - 36 MODES</p>
               <p className="text-xs text-gold mt-1 tracking-wider font-mono">SYSTEMS ONLINE</p>
             </div>
           </div>
@@ -58,7 +58,7 @@ export function HeroSection() {
               <div className="text-right">
                 <div className="flex items-center gap-1.5 justify-end">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-xs font-mono text-teal">v7.4 ONLINE</span>
+                  <span className="text-xs font-mono text-teal">v7.6 ONLINE</span>
                 </div>
               </div>
             </div>
