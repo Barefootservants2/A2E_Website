@@ -63,6 +63,12 @@ body {
   max-width: 100vw;
 }
 
+/* Remove all borders from images by default */
+img {
+  border: 0 !important;
+  outline: 0 !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -99,6 +105,52 @@ body {
   50% {
     box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
   }
+}
+
+/* EXPANDING RADIANCE ANIMATIONS */
+@keyframes radiance-core {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.9;
+  }
+}
+
+@keyframes radiance-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes radiance-rays {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+.animate-radiance-core {
+  animation: radiance-core 3s ease-in-out infinite;
+}
+
+.animate-radiance-expand {
+  animation: radiance-expand 3s ease-out infinite;
+}
+
+.animate-radiance-rays {
+  animation: radiance-rays 20s linear infinite;
 }
 
 .glow-teal {

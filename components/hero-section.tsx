@@ -95,24 +95,58 @@ export function HeroSection() {
       </div>
 
       {/* ANGEL IMAGE SECTION - CONTAINED, NO BLEED */}
-      <div className="relative h-[50vh] min-h-[400px] max-h-[600px] overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
+      <div className="relative h-[50vh] min-h-[400px] max-h-[600px] overflow-hidden border-0 outline-0">
+        <div className="absolute inset-0 overflow-hidden border-0">
           <Image
             src="/images/angel-hero.jpg"
             alt="Angelic figure with crystalline teal wings"
             fill
-            className="object-cover object-center"
+            className="object-cover object-center border-0"
             style={{ filter: 'contrast(1.1) saturate(1.2)' }}
             quality={100}
             priority
             unoptimized
           />
         </div>
+        
+        {/* CRYPTIC TEXT OVERLAY - Covers AI gibberish with Latin phrase */}
+        <div className="absolute inset-0 flex items-start justify-center pt-[15%] pointer-events-none z-10">
+          <p 
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.5em] text-white/[0.12] select-none"
+            style={{ 
+              fontFamily: 'var(--font-cinzel), serif', 
+              fontWeight: 400,
+              textShadow: '0 0 30px rgba(255,255,255,0.05)',
+              letterSpacing: '0.5em'
+            }}
+          >
+            EX CINERE SURGO
+          </p>
+        </div>
+        
+        {/* EXPANDING RADIANCE FROM HEAD - Life force burst */}
+        <div className="absolute top-[25%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-5">
+          {/* Core glow */}
+          <div className="absolute w-[100px] h-[100px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.4)_0%,rgba(255,220,150,0.2)_30%,transparent_70%)] animate-radiance-core" />
+          
+          {/* Expanding rings */}
+          <div className="absolute w-[150px] h-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20 animate-radiance-expand" style={{ animationDelay: '0s' }} />
+          <div className="absolute w-[150px] h-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/15 animate-radiance-expand" style={{ animationDelay: '0.5s' }} />
+          <div className="absolute w-[150px] h-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-teal/20 animate-radiance-expand" style={{ animationDelay: '1s' }} />
+          <div className="absolute w-[150px] h-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-teal/15 animate-radiance-expand" style={{ animationDelay: '1.5s' }} />
+          <div className="absolute w-[150px] h-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-gold/10 animate-radiance-expand" style={{ animationDelay: '2s' }} />
+          
+          {/* Radial rays */}
+          <div className="absolute w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 animate-radiance-rays" style={{
+            background: 'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.05) 5deg, transparent 10deg, transparent 30deg, rgba(255,220,150,0.03) 35deg, transparent 40deg, transparent 60deg, rgba(0,206,209,0.04) 65deg, transparent 70deg, transparent 90deg)'
+          }} />
+        </div>
+        
         <div className="absolute top-0 left-0 right-0 h-[100px] bg-gradient-to-b from-[#0a0a0f] to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-[150px] bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,10,15,0.7)_100%)]" />
         
-        {/* ENERGY EFFECTS */}
+        {/* ENERGY EFFECTS - Lightning bolts and particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(0,206,209,0.15)_0%,transparent_70%)] animate-pulse" style={{ animationDuration: '2s' }} />
           <div className="absolute top-[5%] left-[48%] w-0.5 h-20 bg-gradient-to-b from-teal via-cyan-300 to-transparent animate-pulse opacity-80" style={{ animationDuration: '0.8s' }} />
@@ -124,7 +158,6 @@ export function HeroSection() {
           <div className="absolute top-[12%] left-[46%] w-1.5 h-1.5 bg-white rounded-full animate-ping opacity-80" style={{ animationDuration: '2s' }} />
           <div className="absolute top-[8%] left-[50%] w-1 h-1 bg-cyan-300 rounded-full animate-ping opacity-70" style={{ animationDuration: '1.5s', animationDelay: '0.5s' }} />
           <div className="absolute top-[14%] left-[54%] w-1.5 h-1.5 bg-teal rounded-full animate-ping opacity-80" style={{ animationDuration: '2.5s', animationDelay: '0.8s' }} />
-          <div className="absolute top-[5%] left-1/2 -translate-x-1/2 w-[400px] h-[200px] border border-teal/20 rounded-full animate-pulse opacity-40" style={{ animationDuration: '3s' }} />
         </div>
         
         <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,206,209,0.1)_2px,rgba(0,206,209,0.1)_4px)]" />
