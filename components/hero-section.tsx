@@ -68,21 +68,18 @@ export function HeroSection() {
 
       {/* MAIN TITLE SECTION - ABOVE IMAGE */}
       <div className="relative z-10 bg-[#0a0a0f] py-8 md:py-12 text-center">
-        {/* ASHES2ECHOES - CINZEL font - ancient Roman inscription style */}
         <h1 
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-[0.3em] sm:tracking-[0.4em] text-[#FFD700] px-4"
           style={{ fontFamily: 'var(--font-cinzel), serif', fontWeight: 400 }}
         >
           ASHES2ECHOES
         </h1>
-        {/* Subtitle - Cinzel lighter */}
         <p 
           className="mt-4 text-sm sm:text-base md:text-lg lg:text-xl tracking-[0.2em] sm:tracking-[0.25em] uppercase text-[#00FFFF]"
           style={{ fontFamily: 'var(--font-cinzel), serif', fontWeight: 400 }}
         >
           The Uriel Covenant AI Collective
         </p>
-        {/* Tagline */}
         <div className="mt-4 flex items-center justify-center gap-4 text-xs sm:text-sm">
           <span className="w-10 sm:w-16 h-px bg-teal/60" />
           <span 
@@ -95,24 +92,26 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* ANGEL IMAGE SECTION - 8K CRISP */}
-      <div className="relative h-[50vh] min-h-[400px] max-h-[600px]">
-        <Image
-          src="/images/angel-hero.jpg"
-          alt="Angelic figure with crystalline teal wings"
-          fill
-          className="object-cover object-[center_45%]"
-          style={{ filter: 'contrast(1.1) saturate(1.2)' }}
-          quality={100}
-          priority
-          unoptimized
-        />
+      {/* ANGEL IMAGE SECTION - CONTAINED, NO BLEED */}
+      <div className="relative h-[50vh] min-h-[400px] max-h-[600px] overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src="/images/angel-hero.jpg"
+            alt="Angelic figure with crystalline teal wings"
+            fill
+            className="object-cover object-center"
+            style={{ filter: 'contrast(1.1) saturate(1.2)' }}
+            quality={100}
+            priority
+            unoptimized
+          />
+        </div>
         <div className="absolute top-0 left-0 right-0 h-[100px] bg-gradient-to-b from-[#0a0a0f] to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-[150px] bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,10,15,0.7)_100%)]" />
         
         {/* ENERGY EFFECTS */}
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(0,206,209,0.15)_0%,transparent_70%)] animate-pulse" style={{ animationDuration: '2s' }} />
           <div className="absolute top-[5%] left-[48%] w-0.5 h-20 bg-gradient-to-b from-teal via-cyan-300 to-transparent animate-pulse opacity-80" style={{ animationDuration: '0.8s' }} />
           <div className="absolute top-[8%] left-[52%] w-0.5 h-16 bg-gradient-to-b from-cyan-300 via-teal to-transparent animate-pulse opacity-70" style={{ animationDuration: '1.2s', animationDelay: '0.3s' }} />
