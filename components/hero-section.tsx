@@ -109,8 +109,8 @@ export function HeroSection() {
           />
         </div>
         
-        {/* CRYPTIC TEXT OVERLAY - Covers AI gibberish with Latin phrase */}
-        <div className="absolute inset-0 flex items-start justify-center pt-[15%] pointer-events-none z-10">
+        {/* CRYPTIC TEXT OVERLAY - MOVED UP from pt-[15%] to pt-[5%] */}
+        <div className="absolute inset-0 flex items-start justify-center pt-[5%] pointer-events-none z-10">
           <p 
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.5em] text-white/[0.12] select-none"
             style={{ 
@@ -142,8 +142,11 @@ export function HeroSection() {
           }} />
         </div>
         
+        {/* EDGE GRADIENTS - Top, Bottom, Left (blackout), Right (blackout) */}
         <div className="absolute top-0 left-0 right-0 h-[100px] bg-gradient-to-b from-[#0a0a0f] to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-[150px] bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent" />
+        <div className="absolute top-0 left-0 bottom-0 w-[80px] bg-gradient-to-r from-[#0a0a0f] via-[#0a0a0f]/90 to-transparent" />
+        <div className="absolute top-0 right-0 bottom-0 w-[80px] bg-gradient-to-l from-[#0a0a0f] via-[#0a0a0f]/90 to-transparent" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,10,15,0.7)_100%)]" />
         
         {/* ENERGY EFFECTS - Lightning bolts and particles */}
