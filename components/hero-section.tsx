@@ -115,40 +115,47 @@ export function HeroSection() {
         <div className="absolute top-[55%] right-[25%] w-16 h-px bg-gradient-to-r from-transparent via-teal/25 to-transparent animate-pulse" style={{ animationDuration: '2.5s', animationDelay: '1.2s' }} />
       </div>
 
-      {/* Main Title - Centered - HEAVY BOLD WITH STRONG GLOW */}
+      {/* Main Title - Centered - MAXIMUM BRIGHTNESS */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pt-28 md:pt-24">
-        {/* Title - font-black with intense multi-layer glow */}
+        {/* Semi-transparent backdrop for text readability */}
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[280px] bg-gradient-to-b from-transparent via-black/40 to-transparent pointer-events-none" />
+        
+        {/* Title - MAXIMUM BOLD with stroke effect */}
         <h1 
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[0.15em] sm:tracking-[0.2em] text-[#FFD700] text-center px-4"
+          className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[0.15em] sm:tracking-[0.2em] text-center px-4"
           style={{ 
-            textShadow: '0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 40px rgba(255,215,0,0.8), 0 0 80px rgba(255,215,0,0.5), 0 4px 8px rgba(0,0,0,0.9), 0 8px 16px rgba(0,0,0,0.7)' 
+            color: '#FFD700',
+            textShadow: '0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 40px #FFA500, 0 0 80px #FFA500, 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 8px rgba(0,0,0,1)',
+            WebkitTextStroke: '1px rgba(0,0,0,0.3)'
           }}
         >
           ASHES2ECHOES
         </h1>
         
-        {/* Subtitle - bright white, bold */}
+        {/* Subtitle - BRIGHT WHITE with outline */}
         <p 
-          className="mt-4 text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-[0.1em] sm:tracking-[0.15em] text-white text-center"
+          className="relative mt-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-black tracking-[0.1em] sm:tracking-[0.15em] text-center uppercase"
           style={{ 
-            textShadow: '0 0 10px rgba(255,255,255,0.9), 0 0 30px rgba(0,206,209,0.7), 0 0 50px rgba(0,206,209,0.5), 0 3px 6px rgba(0,0,0,0.9)' 
+            color: '#FFFFFF',
+            textShadow: '0 0 5px #FFF, 0 0 10px #FFF, 0 0 20px #00CED1, 0 0 40px #00CED1, 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 8px rgba(0,0,0,1)'
           }}
         >
           The Uriel Covenant AI Collective
         </p>
         
-        {/* Tagline - bright teal with glow */}
-        <div className="mt-8 flex items-center gap-4 text-sm sm:text-base">
-          <span className="w-10 sm:w-16 h-0.5 bg-gradient-to-r from-transparent to-teal rounded" />
+        {/* Tagline - BRIGHT CYAN */}
+        <div className="relative mt-8 flex items-center gap-4 text-sm sm:text-base md:text-lg">
+          <span className="w-12 sm:w-20 h-0.5 bg-gradient-to-r from-transparent to-cyan-400 rounded" />
           <span 
-            className="tracking-[0.2em] sm:tracking-[0.25em] uppercase font-bold text-[#00FFFF]"
+            className="tracking-[0.2em] sm:tracking-[0.25em] uppercase font-black"
             style={{ 
-              textShadow: '0 0 10px #00FFFF, 0 0 20px rgba(0,255,255,0.8), 0 0 40px rgba(0,255,255,0.5), 0 2px 4px rgba(0,0,0,0.9)' 
+              color: '#00FFFF',
+              textShadow: '0 0 5px #00FFFF, 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 40px #00CED1, 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 8px rgba(0,0,0,1)'
             }}
           >
             Discipline Over Hype
           </span>
-          <span className="w-10 sm:w-16 h-0.5 bg-gradient-to-l from-transparent to-teal rounded" />
+          <span className="w-12 sm:w-20 h-0.5 bg-gradient-to-l from-transparent to-cyan-400 rounded" />
         </div>
       </div>
 
