@@ -47,8 +47,17 @@ export default function ForgePage() {
       <div className="bg-[#0a0a0f] border-b border-teal/20 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10">
-              <Image src="/images/metatron-logo.png" alt="Logo" fill className="object-contain" />
+            {/* METATRON LOGO - STANDARDIZED: 60px for nav, BRIGHT */}
+            <div className="relative w-[60px] h-[60px]">
+              <Image 
+                src="/images/metatron-logo.png" 
+                alt="Logo" 
+                fill 
+                className="object-contain"
+                style={{ filter: 'brightness(1.5) saturate(1.5) drop-shadow(0 0 20px rgba(0,206,209,1)) drop-shadow(0 0 40px rgba(0,206,209,0.7))' }}
+                quality={100}
+              />
+              <div className="absolute inset-[-4px] rounded-full border border-teal/50 animate-pulse" style={{ animationDuration: '2s' }} />
             </div>
             <span className="text-teal group-hover:text-gold transition-colors">← Command Center</span>
           </Link>
@@ -61,6 +70,19 @@ export default function ForgePage() {
 
       {/* Hero */}
       <div className="bg-gradient-to-b from-[#0a0a0f] to-background px-6 py-16 text-center">
+        {/* METATRON LOGO - STANDARDIZED: 100px hero, BRIGHT */}
+        <div className="relative w-[100px] h-[100px] mx-auto mb-6">
+          <Image
+            src="/images/metatron-logo.png"
+            alt="Metatrons Cube"
+            fill
+            className="object-contain"
+            style={{ filter: 'brightness(1.5) saturate(1.5) drop-shadow(0 0 25px rgba(0,206,209,1)) drop-shadow(0 0 50px rgba(0,206,209,0.7))' }}
+            quality={100}
+          />
+          <div className="absolute inset-[-8px] rounded-full border-2 border-teal/60 animate-pulse" style={{ animationDuration: '2s' }} />
+          <div className="absolute inset-[-16px] rounded-full border border-teal/30 animate-pulse" style={{ animationDuration: '3s', animationDelay: '0.5s' }} />
+        </div>
         <h1 className="text-4xl md:text-6xl font-extralight tracking-[0.3em] text-gold mb-4">FORGE</h1>
         <p className="text-lg md:text-xl text-foreground/70 tracking-wider">Prompt Engineering Framework</p>
         <p className="mt-4 text-sm text-teal/70">CREATE Methodology • Systematic Prompting • Quality Assurance</p>

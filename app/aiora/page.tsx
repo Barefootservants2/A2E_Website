@@ -14,6 +14,19 @@ export default function AioraPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
+          {/* METATRON LOGO - STANDARDIZED: 100px, BRIGHT */}
+          <div className="relative w-[100px] h-[100px] mb-4">
+            <Image
+              src="/images/metatron-logo.png"
+              alt="Metatrons Cube"
+              fill
+              className="object-contain"
+              style={{ filter: 'brightness(1.5) saturate(1.5) drop-shadow(0 0 25px rgba(0,206,209,1)) drop-shadow(0 0 50px rgba(0,206,209,0.7))' }}
+              quality={100}
+            />
+            <div className="absolute inset-[-8px] rounded-full border-2 border-teal/60 animate-pulse" style={{ animationDuration: '2s' }} />
+            <div className="absolute inset-[-16px] rounded-full border border-teal/30 animate-pulse" style={{ animationDuration: '3s', animationDelay: '0.5s' }} />
+          </div>
           <h1 className="text-4xl md:text-6xl font-extralight tracking-[0.3em] text-teal drop-shadow-[0_0_30px_rgba(0,206,209,0.5)]">
             AIORA
           </h1>
