@@ -65,25 +65,24 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Main Title - WITH SOLID DARK BACKDROP */}
+      {/* Main Title - NO BOX, TEAL TEXT LIKE METATRON CARD */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pt-28 md:pt-24">
-        {/* SOLID DARK BOX BEHIND TEXT */}
-        <div className="bg-black/70 backdrop-blur-sm px-8 md:px-16 py-8 md:py-12 rounded-lg border border-teal/20">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[0.15em] sm:tracking-[0.2em] text-center text-[#FFD700]">
-            ASHES2ECHOES
-          </h1>
-          
-          <p className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-black tracking-[0.15em] text-center uppercase text-white">
-            The Uriel Covenant AI Collective
-          </p>
-          
-          <div className="mt-6 flex items-center justify-center gap-4 text-base sm:text-lg">
-            <span className="w-12 sm:w-20 h-0.5 bg-white rounded" />
-            <span className="tracking-[0.25em] uppercase font-black text-white">
-              Discipline Over Hype
-            </span>
-            <span className="w-12 sm:w-20 h-0.5 bg-white rounded" />
-          </div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[0.15em] sm:tracking-[0.2em] text-center px-4 text-[#FFD700] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+          ASHES2ECHOES
+        </h1>
+        
+        {/* Subtitle - TEAL like METATRON card header */}
+        <p className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-[0.15em] text-center uppercase text-[#00CED1] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+          The Uriel Covenant AI Collective
+        </p>
+        
+        {/* Tagline - WHITE BOLD */}
+        <div className="mt-6 flex items-center justify-center gap-4 text-base sm:text-lg">
+          <span className="w-12 sm:w-20 h-px bg-white/60" />
+          <span className="tracking-[0.2em] uppercase font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+            Discipline Over Hype
+          </span>
+          <span className="w-12 sm:w-20 h-px bg-white/60" />
         </div>
       </div>
 
