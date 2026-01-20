@@ -25,7 +25,7 @@ export function HeroSection() {
           <div className="hidden md:flex items-center justify-between">
             <Link href="/about" className="group flex-shrink-0" title="My Story">
               <div className="relative w-14 h-14 lg:w-16 lg:h-16 transition-transform duration-300 group-hover:scale-110">
-                <Image src="/images/metatron-logo.png" alt="Metatron's Cube" fill className="object-contain drop-shadow-[0_0_15px_rgba(0,206,209,0.7)]" />
+                <Image src="/images/metatron-logo.png" alt="Metatron Cube" fill className="object-contain drop-shadow-[0_0_15px_rgba(0,206,209,0.7)]" />
                 <div className="absolute inset-[-4px] rounded-full border border-teal/40 animate-pulse" style={{ animationDuration: '3s' }} />
               </div>
             </Link>
@@ -41,7 +41,7 @@ export function HeroSection() {
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-sm font-mono text-teal tracking-wider">METATRON v7.4</span>
               </div>
-              <p className="text-xs text-muted-foreground mt-1 tracking-wider">14 GATES • 36 MODES</p>
+              <p className="text-xs text-muted-foreground mt-1 tracking-wider">14 GATES - 36 MODES</p>
               <p className="text-xs text-gold mt-1 tracking-wider font-mono">SYSTEMS ONLINE</p>
             </div>
           </div>
@@ -49,7 +49,7 @@ export function HeroSection() {
             <div className="flex items-center justify-between mb-3">
               <Link href="/about" className="group">
                 <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
-                  <Image src="/images/metatron-logo.png" alt="Metatron's Cube" fill className="object-contain drop-shadow-[0_0_12px_rgba(0,206,209,0.6)]" />
+                  <Image src="/images/metatron-logo.png" alt="Metatron Cube" fill className="object-contain drop-shadow-[0_0_12px_rgba(0,206,209,0.6)]" />
                 </div>
               </Link>
               <div className="text-right">
@@ -65,42 +65,25 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Main Title - MAXIMUM WHITE */}
+      {/* Main Title - WITH SOLID DARK BACKDROP */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pt-28 md:pt-24">
-        <h1 
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[0.15em] sm:tracking-[0.2em] text-center px-4"
-          style={{ 
-            color: '#FFD700',
-            textShadow: '0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 40px #FFD700, 0 4px 0 #000, 0 5px 10px rgba(0,0,0,1)' 
-          }}
-        >
-          ASHES2ECHOES
-        </h1>
-        
-        {/* Subtitle - PURE WHITE #FFFFFF */}
-        <p 
-          className="mt-5 text-lg sm:text-xl md:text-2xl lg:text-3xl font-black tracking-[0.15em] text-center uppercase"
-          style={{ 
-            color: '#FFFFFF',
-            textShadow: '0 0 15px #FFFFFF, 0 0 30px #FFFFFF, 0 3px 0 #000, 0 4px 10px rgba(0,0,0,1)' 
-          }}
-        >
-          The Uriel Covenant AI Collective
-        </p>
-        
-        {/* Tagline - PURE WHITE #FFFFFF */}
-        <div className="mt-10 flex items-center gap-4 text-base sm:text-lg">
-          <span className="w-12 sm:w-20 h-0.5 bg-white rounded" />
-          <span 
-            className="tracking-[0.25em] uppercase font-black"
-            style={{ 
-              color: '#FFFFFF',
-              textShadow: '0 0 15px #FFFFFF, 0 0 30px #FFFFFF, 0 3px 0 #000, 0 4px 10px rgba(0,0,0,1)' 
-            }}
-          >
-            Discipline Over Hype
-          </span>
-          <span className="w-12 sm:w-20 h-0.5 bg-white rounded" />
+        {/* SOLID DARK BOX BEHIND TEXT */}
+        <div className="bg-black/70 backdrop-blur-sm px-8 md:px-16 py-8 md:py-12 rounded-lg border border-teal/20">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[0.15em] sm:tracking-[0.2em] text-center text-[#FFD700]">
+            ASHES2ECHOES
+          </h1>
+          
+          <p className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-black tracking-[0.15em] text-center uppercase text-white">
+            The Uriel Covenant AI Collective
+          </p>
+          
+          <div className="mt-6 flex items-center justify-center gap-4 text-base sm:text-lg">
+            <span className="w-12 sm:w-20 h-0.5 bg-white rounded" />
+            <span className="tracking-[0.25em] uppercase font-black text-white">
+              Discipline Over Hype
+            </span>
+            <span className="w-12 sm:w-20 h-0.5 bg-white rounded" />
+          </div>
         </div>
       </div>
 
