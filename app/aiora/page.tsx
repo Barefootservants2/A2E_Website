@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import { OracleInject } from "@/components/oracle-inject"
 
 export default function AioraPage() {
   return (
@@ -226,7 +227,7 @@ export default function AioraPage() {
         </section>
 
         {/* Back Link */}
-        <div className="text-center">
+        <div className="text-center mb-12">
           <Link 
             href="/" 
             className="inline-flex items-center gap-2 text-teal hover:text-gold transition-colors"
@@ -236,6 +237,9 @@ export default function AioraPage() {
           </Link>
         </div>
       </div>
+
+      {/* Oracle Inject Component */}
+      <OracleInject />
 
       {/* Footer */}
       <footer className="border-t border-teal/20 py-6 text-center text-sm text-muted-foreground">
