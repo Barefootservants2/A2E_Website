@@ -9,9 +9,17 @@ export function HeroSection() {
         <div className="max-w-7xl mx-auto">
           <div className="hidden md:flex items-center justify-between">
             <Link href="/about" className="group flex-shrink-0" title="My Story">
-              <div className="relative w-14 h-14 lg:w-16 lg:h-16 transition-transform duration-300 group-hover:scale-110">
-                <Image src="/images/metatron-logo.png" alt="Metatron Cube" fill className="object-contain drop-shadow-[0_0_20px_rgba(0,206,209,0.8)]" />
-                <div className="absolute inset-[-4px] rounded-full border border-teal/50 animate-pulse" style={{ animationDuration: '3s' }} />
+              <div className="relative w-20 h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 transition-transform duration-300 group-hover:scale-110">
+                <Image 
+                  src="/images/metatron-logo.png" 
+                  alt="Metatron Cube" 
+                  fill 
+                  className="object-contain"
+                  style={{ filter: 'brightness(1.3) saturate(1.4) drop-shadow(0 0 30px rgba(0,206,209,1)) drop-shadow(0 0 60px rgba(0,206,209,0.6))' }}
+                  quality={100}
+                />
+                <div className="absolute inset-[-8px] rounded-full border-2 border-teal/60 animate-pulse" style={{ animationDuration: '2s' }} />
+                <div className="absolute inset-[-16px] rounded-full border border-teal/30 animate-pulse" style={{ animationDuration: '3s', animationDelay: '0.5s' }} />
               </div>
             </Link>
             <div className="text-center flex-1 px-8 lg:px-16">
@@ -33,8 +41,16 @@ export function HeroSection() {
           <div className="md:hidden">
             <div className="flex items-center justify-between mb-3">
               <Link href="/about" className="group">
-                <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
-                  <Image src="/images/metatron-logo.png" alt="Metatron Cube" fill className="object-contain drop-shadow-[0_0_12px_rgba(0,206,209,0.6)]" />
+                <div className="relative w-14 h-14 transition-transform duration-300 group-hover:scale-110">
+                  <Image 
+                    src="/images/metatron-logo.png" 
+                    alt="Metatron Cube" 
+                    fill 
+                    className="object-contain"
+                    style={{ filter: 'brightness(1.3) saturate(1.4) drop-shadow(0 0 20px rgba(0,206,209,1))' }}
+                    quality={100}
+                  />
+                  <div className="absolute inset-[-4px] rounded-full border border-teal/50 animate-pulse" style={{ animationDuration: '2s' }} />
                 </div>
               </Link>
               <div className="text-right">
