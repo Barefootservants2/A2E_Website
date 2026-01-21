@@ -82,7 +82,7 @@ export default function AboutPage() {
             </p>
             <ul className="mt-4 space-y-2 text-foreground/70">
               <li className="flex items-center gap-2">
-                <span className="text-teal">▸</span> METATRON v7.4 — 14-gate verification protocol
+                <span className="text-teal">▸</span> METATRON v7.7 — 16-gate verification protocol with 14 HUNTER modules
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-teal">▸</span> AIORA — AI-Optimized Risk Assessment for trading
@@ -113,6 +113,7 @@ export default function AboutPage() {
       {/* Footer */}
       <footer className="border-t border-teal/20 py-6 text-center text-sm text-muted-foreground">
         <p>© 2026 Ashes2Echoes LLC. Newport News, Virginia.</p>
+        <p className="text-xs text-foreground/40 mt-2">METATRON v7.7 | 16 Gates | 14 HUNTER Modules</p>
       </footer>
     </main>
   )
