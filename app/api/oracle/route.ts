@@ -37,21 +37,21 @@ export async function POST(request: NextRequest) {
 ORACLE INJECT:
 ${input}
 
-Run complete METATRON v7.6 protocol. Evaluate all 15 gates. Provide AIORA position sizing recommendation.`;
+Run complete METATRON v7.6 protocol. Use web search to gather current market data, news, and financial information. Evaluate all 15 gates. Provide AIORA position sizing recommendation.`;
         break;
       case 'ORACLE':
         userMessage = `ORACLE - Context Package
 
 ${input}
 
-Extract thesis, summarize evidence, identify key claims. Skip full gate evaluation.`;
+Extract thesis, summarize evidence, identify key claims. Use web search if needed to verify claims. Skip full gate evaluation.`;
         break;
       case 'SCAN':
         userMessage = `SCAN - Quick Analysis
 
 ${input}
 
-Quick scan: Catalyst freshness score, HUNTER alerts, headline risk assessment only.`;
+Quick scan: Use web search to check current prices and recent news. Catalyst freshness score, HUNTER alerts, headline risk assessment only.`;
         break;
       case 'ORACLE_INJECT':
       default:
@@ -59,15 +59,21 @@ Quick scan: Catalyst freshness score, HUNTER alerts, headline risk assessment on
 
 ${input}
 
-Process this data through complete METATRON v7.6 protocol. All 15 gates required.`;
+Process this data through complete METATRON v7.6 protocol. Use web search to verify claims and gather current market data. All 15 gates required.`;
         break;
     }
 
-    // Call Claude API with streaming
+    // Call Claude API with streaming and web search tool
     const stream = await anthropic.messages.stream({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 4096,
+      max_tokens: 8192,
       system: METATRON_SYSTEM_PROMPT,
+      tools: [
+        {
+          type: "web_search_20250305",
+          name: "web_search"
+        }
+      ],
       messages: [
         {
           role: 'user',
@@ -118,6 +124,7 @@ export async function GET() {
     version: 'METATRON v7.6',
     gates: 15,
     hunter_modules: 12,
-    message: 'Oracle Protocol Engine Ready'
+    web_search: true,
+    message: 'Oracle Protocol Engine Ready with Web Search'
   });
 }
