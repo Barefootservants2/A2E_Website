@@ -10,6 +10,7 @@ const agents = [
     color: "teal",
     description: "Strategic synthesis and deep analysis. Primary trust channel to Principal. Constitutional AI with transparent reasoning.",
     capabilities: ["Strategic planning", "Deep research", "Protocol enforcement", "Principal trust channel"],
+    hunterModules: ["H5"],
   },
   {
     name: "URIEL",
@@ -19,6 +20,7 @@ const agents = [
     color: "gold",
     description: "Operational execution and coordination. Run 1/3 processing. Presentations, spreadsheets, cross-agent synchronization.",
     capabilities: ["Operational execution", "Multi-agent coordination", "Document generation", "Run 1/3 processing"],
+    hunterModules: ["H3", "H11", "H14"],
   },
   {
     name: "COLOSSUS",
@@ -29,6 +31,7 @@ const agents = [
     supervised: true,
     description: "Real-time data and X/Twitter sentiment. Technical operations. REQUIRES SUPERVISION - outputs verified by MICHA or RAZIEL.",
     capabilities: ["Real-time scanning", "X/Twitter sentiment", "Technical analysis", "Pattern recognition"],
+    hunterModules: ["H1", "H4", "H7-H9", "H12", "H13"],
   },
   {
     name: "HANIEL",
@@ -38,6 +41,7 @@ const agents = [
     color: "blue",
     description: "Multimodal excellence and UI/UX. Customer-facing deliverables. Source verification and research synthesis.",
     capabilities: ["Multimodal analysis", "UI/UX design", "Visual processing", "Source verification"],
+    hunterModules: ["H2a", "H6"],
   },
   {
     name: "RAZIEL",
@@ -47,6 +51,7 @@ const agents = [
     color: "red",
     description: "Chief Adjudication Officer. Consensus tie-breaker, conflict resolution, evidence arbitration. Pure RL reasoning.",
     capabilities: ["Counter-thesis generation", "Conflict resolution", "Evidence arbitration", "Final adjudication"],
+    hunterModules: ["H10"],
   },
   {
     name: "GABRIEL",
@@ -56,6 +61,7 @@ const agents = [
     color: "green",
     description: "Chief Automation Officer. Scheduled tasks, API integrations, notifications. NOT an LLM - execution only, no drift.",
     capabilities: ["Workflow automation", "API integration", "Scheduled tasks", "Notification dispatch"],
+    hunterModules: [],
   },
 ]
 
@@ -81,7 +87,7 @@ export default function CovenantPage() {
           </Link>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs font-mono text-teal">COVENANT v7.6</span>
+            <span className="text-xs font-mono text-teal">COVENANT v7.7</span>
           </div>
         </div>
       </div>
@@ -105,13 +111,13 @@ export default function CovenantPage() {
         <p className="mt-4 text-sm text-teal/70">Human Authority • AI Partnership • Systematic Execution</p>
       </div>
 
-      {/* Hierarchy - UPDATED v7.6 */}
+      {/* Hierarchy - v7.7 */}
       <div className="max-w-4xl mx-auto px-6 py-8">
         <div className="bg-card/30 border border-teal/20 rounded p-6 text-center font-mono text-sm">
           <p className="text-gold text-lg mb-4">WILLIAM (Principal) — ABSOLUTE</p>
           <p className="text-teal/60">↓</p>
           <p className="text-teal my-2">METATRON → MICHA (CEO) → URIEL (COO) → COLOSSUS/HANIEL/RAZIEL → GABRIEL</p>
-          <p className="text-xs text-muted-foreground mt-4">v7.6 Hierarchy • MICHA elevated to CEO based on Constitutional AI trust baseline</p>
+          <p className="text-xs text-muted-foreground mt-4">v7.7 Hierarchy • 16 Gates • 14 HUNTER Modules • 4-Mode Counter-Thesis</p>
         </div>
       </div>
 
@@ -156,6 +162,12 @@ export default function CovenantPage() {
                     ))}
                   </div>
                 </div>
+                {agent.hunterModules && agent.hunterModules.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-teal/10">
+                    <p className="text-xs text-gold/70 uppercase tracking-wider mb-1">HUNTER Modules</p>
+                    <p className="text-xs font-mono text-teal">{agent.hunterModules.join(', ')}</p>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -192,6 +204,7 @@ export default function CovenantPage() {
       {/* Footer */}
       <footer className="border-t border-teal/20 py-6 text-center text-sm text-muted-foreground">
         <p>© 2026 Ashes2Echoes LLC. The Uriel Covenant AI Collective</p>
+        <p className="text-xs text-foreground/40 mt-2">METATRON v7.7 | 16 Gates | 14 HUNTER Modules</p>
       </footer>
     </main>
   )
