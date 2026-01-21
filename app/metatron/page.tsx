@@ -216,35 +216,34 @@ export default function MetatronPage() {
           </div>
         </section>
 
-        {/* 15 Mandatory Gates with tooltips */}
+        {/* 15 Mandatory Gates - Card Grid Layout */}
         <section className="mb-16">
           <h2 className="text-2xl font-light tracking-[0.2em] text-teal mb-2 text-center">15 MANDATORY GATES</h2>
           <p className="text-center text-foreground/50 text-sm mb-6">Hover any gate for pass criteria details</p>
-          <div className="bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded overflow-hidden">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-teal/30 bg-teal/5">
-                  <th className="px-4 py-3 text-left font-mono text-teal tracking-wider w-16">#</th>
-                  <th className="px-4 py-3 text-left font-mono text-teal tracking-wider">GATE</th>
-                  <th className="px-4 py-3 text-left font-mono text-teal tracking-wider">PASS CONDITION</th>
-                </tr>
-              </thead>
-              <tbody>
-                {gates.map((gate) => (
-                  <Tooltip key={gate.num} content={gate.detail}>
-                    <tr className={`border-b border-teal/10 hover:bg-teal/10 cursor-help transition-colors ${gate.isNew ? 'bg-gold/5' : ''}`}>
-                      <td className="px-4 py-3 font-mono text-gold">{gate.num}</td>
-                      <td className="px-4 py-3 text-foreground/90">
-                        {gate.name}
-                        {gate.isNew && <span className="ml-2 text-[10px] bg-gold/20 text-gold px-1.5 py-0.5 rounded">NEW</span>}
-                      </td>
-                      <td className="px-4 py-3 text-foreground/60">{gate.condition}</td>
-                    </tr>
-                  </Tooltip>
-                ))}
-              </tbody>
-            </table>
+          
+          {/* Header Row */}
+          <div className="bg-teal/5 border border-teal/30 rounded-t grid grid-cols-12 gap-2 px-4 py-3">
+            <div className="col-span-1 font-mono text-teal text-sm tracking-wider">#</div>
+            <div className="col-span-4 font-mono text-teal text-sm tracking-wider">GATE</div>
+            <div className="col-span-7 font-mono text-teal text-sm tracking-wider">PASS CONDITION</div>
           </div>
+          
+          {/* Gate Rows */}
+          <div className="border-x border-b border-teal/30 rounded-b overflow-hidden">
+            {gates.map((gate, index) => (
+              <Tooltip key={gate.num} content={gate.detail}>
+                <div className={`grid grid-cols-12 gap-2 px-4 py-3 border-b border-teal/10 last:border-b-0 hover:bg-teal/10 cursor-help transition-colors ${gate.isNew ? 'bg-gold/5' : ''}`}>
+                  <div className="col-span-1 font-mono text-gold text-sm">{gate.num}</div>
+                  <div className="col-span-4 text-foreground/90 text-sm flex items-center gap-2">
+                    {gate.name}
+                    {gate.isNew && <span className="text-[10px] bg-gold/20 text-gold px-1.5 py-0.5 rounded">NEW</span>}
+                  </div>
+                  <div className="col-span-7 text-foreground/60 text-sm">{gate.condition}</div>
+                </div>
+              </Tooltip>
+            ))}
+          </div>
+          
           <div className="mt-4 bg-red-500/10 border border-red-500/30 rounded p-4 text-center">
             <p className="text-red-400 font-mono tracking-wider">IF ANY GATE FAILS → NO SHIP</p>
           </div>
