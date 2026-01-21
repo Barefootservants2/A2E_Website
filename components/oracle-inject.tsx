@@ -41,10 +41,14 @@ export function OracleInject() {
   // Action results
   const [actionResult, setActionResult] = useState<ActionResult | null>(null)
   
+  // Injection acknowledgment
+  const [injectionAck, setInjectionAck] = useState<string | null>(null)
+  
   // Canvas modal
   const [showCanvas, setShowCanvas] = useState(false)
   
   const historyRef = useRef<HTMLDivElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   // Load persisted data on mount
   useEffect(() => {
@@ -128,6 +132,7 @@ export function OracleInject() {
     if (!input.trim()) return
     
     setIsProcessing(true)
+    setInjectionAck(null)
     
     setTimeout(() => {
       const timestamp = new Date().toISOString()
@@ -144,14 +149,46 @@ export function OracleInject() {
       localStorage.setItem('oracle-inject-last', JSON.stringify(entry))
       setShowResponse(true)
       setActionResult(null)
+      
+      // Set acknowledgment message
+      const charCount = input.length
+      const wordCount = input.split(/\s+/).filter(Boolean).length
+      setInjectionAck(`✓ INJECTED: ${wordCount} words, ${charCount} chars | Mode: ${entry.mode} | Saved to: ${saveLocation.toUpperCase()}`)
+      
       setInput("")
       setIsProcessing(false)
+      
+      // Auto-clear acknowledgment after 5 seconds
+      setTimeout(() => setInjectionAck(null), 5000)
     }, 300)
+  }
+
+  // Handle keyboard shortcuts
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Ctrl+Enter or Cmd+Enter to inject
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault()
+      handleInject()
+    }
+    // Just Enter at end of input also injects (if single line or at end)
+    if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.metaKey) {
+      const textarea = e.currentTarget
+      const cursorAtEnd = textarea.selectionStart === textarea.value.length
+      const isSingleLine = !textarea.value.includes('\n')
+      
+      // If it's a single line paste or cursor is at very end, inject on Enter
+      if (isSingleLine || cursorAtEnd) {
+        e.preventDefault()
+        handleInject()
+      }
+      // Otherwise, let Enter create a new line (for multi-line input)
+    }
   }
 
   const loadFromHistory = (entry: OracleEntry) => {
     setInput(entry.input)
     setShowHistory(false)
+    textareaRef.current?.focus()
   }
 
   const copyToClipboard = async (text: string): Promise<boolean> => {
@@ -174,7 +211,7 @@ ORACLE INJECT:
 ${lastInjection.input}
 
 ---
-Run full AIORA protocol. Apply METATRON v7.4 gates. Provide position sizing recommendation.`
+Run full AIORA protocol. Apply METATRON v7.6 gates. Provide position sizing recommendation.`
     
     const copied = await copyToClipboard(command)
     setActionResult({
@@ -322,17 +359,31 @@ Provide total score (0-12) with recommendations for improvement.
           
           {/* Main Container */}
           <div className="border border-teal/30 rounded-lg p-4 bg-[#0a0a0f]/80">
-            {/* INPUT Label */}
-            <div className="text-xs font-mono text-teal/70 mb-2 tracking-wider">INPUT</div>
+            {/* INPUT Label with keyboard hint */}
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-xs font-mono text-teal/70 tracking-wider">INPUT</div>
+              <div className="text-[9px] font-mono text-muted-foreground/50">
+                Press <kbd className="bg-teal/10 px-1.5 py-0.5 rounded text-teal/70">Enter</kbd> or <kbd className="bg-teal/10 px-1.5 py-0.5 rounded text-teal/70">Ctrl+Enter</kbd> to inject
+              </div>
+            </div>
             
             {/* Input Field - Scrollable */}
             <textarea
+              ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Paste news, 13F filings, analyst reports, SMS alerts..."
               className="w-full h-28 bg-[#0d1117] border border-teal/20 rounded px-3 py-2 text-sm font-mono text-foreground/90 placeholder:text-muted-foreground/40 focus:border-teal/50 focus:outline-none resize-y overflow-auto"
               style={{ minHeight: '80px', maxHeight: '300px' }}
             />
+            
+            {/* Injection Acknowledgment */}
+            {injectionAck && (
+              <div className="mt-2 px-3 py-2 bg-green-500/10 border border-green-500/30 rounded text-[11px] font-mono text-green-400 animate-pulse">
+                {injectionAck}
+              </div>
+            )}
             
             {/* Bottom Row: Save options + Actions */}
             <div className="mt-3 flex items-center justify-between flex-wrap gap-2">
@@ -455,7 +506,7 @@ Provide total score (0-12) with recommendations for improvement.
               <div className="mt-4 border-t border-teal/20 pt-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono text-teal/70 tracking-wider">INJECTION PREVIEW</span>
+                    <span className="text-xs font-mono text-teal/70 tracking-wider">LAST INJECTION</span>
                     <span className={`text-[8px] px-1.5 py-0.5 rounded ${lastInjection.mode === 'CREATE' ? 'bg-teal/20 text-teal' : 'bg-gray-500/20 text-gray-400'}`}>
                       {lastInjection.mode}
                     </span>
@@ -474,7 +525,7 @@ Provide total score (0-12) with recommendations for improvement.
                       }}
                       className="text-[9px] font-mono text-teal/60 hover:text-teal border border-teal/30 px-2 py-0.5 rounded transition-colors"
                     >
-                      COLLAPSE
+                      CLEAR
                     </button>
                   </div>
                 </div>
@@ -487,73 +538,79 @@ Provide total score (0-12) with recommendations for improvement.
                 </div>
                 
                 <div className="mt-2 text-[9px] font-mono text-muted-foreground">
-                  Injected: {new Date(lastInjection.timestamp).toLocaleString()} | {lastInjection.input.length} chars | Saved to: {saveLocation.toUpperCase()}
+                  Injected: {new Date(lastInjection.timestamp).toLocaleString()} | {lastInjection.input.length} chars | {lastInjection.input.split(/\s+/).filter(Boolean).length} words
                 </div>
                 
-                {/* Action Buttons - Only show in CREATE mode */}
-                {createMode && (
-                  <div className="mt-3 flex items-center gap-2 flex-wrap">
-                    <span className="text-[9px] font-mono text-teal/50">ACTIONS:</span>
+                {/* NEXT STEPS - What to do with the injection */}
+                <div className="mt-3 p-3 bg-teal/5 border border-teal/20 rounded">
+                  <div className="text-[10px] font-mono text-teal mb-2">📋 NEXT STEPS — Choose an action:</div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex items-center gap-2 flex-wrap">
                     <button 
                       onClick={handleRunMarketWatch}
-                      className="text-[9px] font-mono text-gold/70 hover:text-gold border border-gold/30 px-2 py-1 rounded transition-colors hover:bg-gold/10"
+                      className="text-[10px] font-mono text-gold hover:text-gold border border-gold/40 px-3 py-1.5 rounded transition-colors hover:bg-gold/10"
                     >
-                      RUN MARKET WATCH
+                      🎯 MARKET WATCH
                     </button>
                     <button 
                       onClick={handleCreateAnalysis}
-                      className="text-[9px] font-mono text-teal/70 hover:text-teal border border-teal/30 px-2 py-1 rounded transition-colors hover:bg-teal/10"
+                      className="text-[10px] font-mono text-teal hover:text-teal border border-teal/40 px-3 py-1.5 rounded transition-colors hover:bg-teal/10"
                     >
-                      CREATE ANALYSIS
+                      📊 ANALYZE
                     </button>
                     <button 
                       onClick={handleScoreCREATE}
-                      className="text-[9px] font-mono text-cyan-400/70 hover:text-cyan-400 border border-cyan-400/30 px-2 py-1 rounded transition-colors hover:bg-cyan-400/10"
+                      className="text-[10px] font-mono text-cyan-400 hover:text-cyan-400 border border-cyan-400/40 px-3 py-1.5 rounded transition-colors hover:bg-cyan-400/10"
                     >
-                      SCORE (CREATE)
+                      📝 SCORE
                     </button>
                     <button 
                       onClick={handleExpandCanvas}
-                      className="text-[9px] font-mono text-purple-400/70 hover:text-purple-400 border border-purple-400/30 px-2 py-1 rounded transition-colors hover:bg-purple-400/10"
+                      className="text-[10px] font-mono text-purple-400 hover:text-purple-400 border border-purple-400/40 px-3 py-1.5 rounded transition-colors hover:bg-purple-400/10"
                     >
-                      EXPAND CANVAS
+                      🔍 EXPAND
                     </button>
-                  </div>
-                )}
-                
-                {/* RAW mode - simple copy only */}
-                {!createMode && (
-                  <div className="mt-3 flex items-center gap-2">
-                    <span className="text-[9px] font-mono text-gray-500">RAW MODE:</span>
                     <button 
                       onClick={() => copyToClipboard(`ORACLE INJECT:\n${lastInjection.input}`)}
-                      className="text-[9px] font-mono text-gray-400 hover:text-white border border-gray-500/30 px-2 py-1 rounded transition-colors hover:bg-gray-500/10"
+                      className="text-[10px] font-mono text-white/60 hover:text-white border border-white/30 px-3 py-1.5 rounded transition-colors hover:bg-white/10"
                     >
-                      COPY WITH PREFIX
+                      📋 COPY FOR CLAUDE
                     </button>
                   </div>
-                )}
+                  
+                  <div className="mt-2 text-[9px] text-muted-foreground">
+                    Click an action to generate a formatted prompt → Paste into Claude or any AI assistant
+                  </div>
+                </div>
                 
                 {/* Action Result Feedback */}
                 {actionResult && (
                   <div className="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-mono text-green-400">
+                      <span className="text-[11px] font-mono text-green-400">
                         ✓ {actionResult.action} {actionResult.copied ? '— COPIED TO CLIPBOARD' : '— READY'}
                       </span>
                       <span className="text-[9px] text-green-400/60">
                         {new Date(actionResult.timestamp).toLocaleTimeString()}
                       </span>
                     </div>
-                    <div className="text-[9px] font-mono text-green-400/70">
-                      Paste into Claude to execute. Command includes METATRON gates and AIORA risk framework.
+                    <div className="bg-[#0d1117] border border-green-500/20 rounded p-2 max-h-32 overflow-y-auto mb-2">
+                      <pre className="text-[10px] font-mono text-green-400/80 whitespace-pre-wrap">
+                        {actionResult.content.substring(0, 300)}...
+                      </pre>
                     </div>
-                    <button
-                      onClick={() => copyToClipboard(actionResult.content)}
-                      className="mt-2 text-[9px] font-mono text-green-400 border border-green-500/40 px-2 py-1 rounded hover:bg-green-500/20 transition-colors"
-                    >
-                      COPY AGAIN
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => copyToClipboard(actionResult.content)}
+                        className="text-[9px] font-mono text-green-400 border border-green-500/40 px-2 py-1 rounded hover:bg-green-500/20 transition-colors"
+                      >
+                        COPY AGAIN
+                      </button>
+                      <span className="text-[9px] text-green-400/60">
+                        Paste this into Claude to run the analysis
+                      </span>
+                    </div>
                   </div>
                 )}
               </div>
@@ -619,34 +676,32 @@ Provide total score (0-12) with recommendations for improvement.
               </div>
               
               {/* Quick Actions in Canvas */}
-              {createMode && (
-                <div className="flex flex-wrap gap-2">
-                  <button 
-                    onClick={handleRunMarketWatch}
-                    className="text-xs font-mono text-gold hover:text-gold border border-gold/40 px-4 py-2 rounded transition-colors hover:bg-gold/10"
-                  >
-                    🎯 RUN MARKET WATCH
-                  </button>
-                  <button 
-                    onClick={handleCreateAnalysis}
-                    className="text-xs font-mono text-teal hover:text-teal border border-teal/40 px-4 py-2 rounded transition-colors hover:bg-teal/10"
-                  >
-                    📊 CREATE ANALYSIS
-                  </button>
-                  <button 
-                    onClick={handleScoreCREATE}
-                    className="text-xs font-mono text-cyan-400 hover:text-cyan-400 border border-cyan-400/40 px-4 py-2 rounded transition-colors hover:bg-cyan-400/10"
-                  >
-                    📝 SCORE (CREATE)
-                  </button>
-                  <button 
-                    onClick={() => copyToClipboard(lastInjection.input)}
-                    className="text-xs font-mono text-white/70 hover:text-white border border-white/30 px-4 py-2 rounded transition-colors hover:bg-white/10"
-                  >
-                    📋 COPY RAW
-                  </button>
-                </div>
-              )}
+              <div className="flex flex-wrap gap-2">
+                <button 
+                  onClick={handleRunMarketWatch}
+                  className="text-xs font-mono text-gold hover:text-gold border border-gold/40 px-4 py-2 rounded transition-colors hover:bg-gold/10"
+                >
+                  🎯 RUN MARKET WATCH
+                </button>
+                <button 
+                  onClick={handleCreateAnalysis}
+                  className="text-xs font-mono text-teal hover:text-teal border border-teal/40 px-4 py-2 rounded transition-colors hover:bg-teal/10"
+                >
+                  📊 CREATE ANALYSIS
+                </button>
+                <button 
+                  onClick={handleScoreCREATE}
+                  className="text-xs font-mono text-cyan-400 hover:text-cyan-400 border border-cyan-400/40 px-4 py-2 rounded transition-colors hover:bg-cyan-400/10"
+                >
+                  📝 SCORE (CREATE)
+                </button>
+                <button 
+                  onClick={() => copyToClipboard(lastInjection.input)}
+                  className="text-xs font-mono text-white/70 hover:text-white border border-white/30 px-4 py-2 rounded transition-colors hover:bg-white/10"
+                >
+                  📋 COPY RAW
+                </button>
+              </div>
             </div>
             
             {/* Action Result in Canvas */}
