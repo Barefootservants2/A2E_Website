@@ -37,21 +37,23 @@ export async function POST(request: NextRequest) {
 ORACLE INJECT:
 ${input}
 
-IMPORTANT: Use web search to gather current market data, stock prices, recent news, and financial information for any tickers or companies mentioned. Then run complete METATRON v7.6 protocol. Evaluate all 15 gates with real data. Provide AIORA position sizing recommendation.`;
+Run complete METATRON v7.6 protocol. Evaluate all 15 gates. Provide AIORA position sizing recommendation.
+
+NOTE: You do not have web search in this environment. Analyze based on the data provided and your training knowledge. Clearly document any gaps where live data would be needed.`;
         break;
       case 'ORACLE':
         userMessage = `ORACLE - Context Package
 
 ${input}
 
-Use web search to verify claims and gather current data. Extract thesis, summarize evidence, identify key claims.`;
+Extract thesis, summarize evidence, identify key claims. Skip full gate evaluation.`;
         break;
       case 'SCAN':
         userMessage = `SCAN - Quick Analysis
 
 ${input}
 
-Use web search to check current prices and recent news for any tickers mentioned. Catalyst freshness score, HUNTER alerts, headline risk assessment only.`;
+Quick scan: Catalyst freshness score, HUNTER alerts, headline risk assessment only.`;
         break;
       case 'ORACLE_INJECT':
       default:
@@ -59,21 +61,17 @@ Use web search to check current prices and recent news for any tickers mentioned
 
 ${input}
 
-IMPORTANT: Use web search to gather current market data, verify claims, and get real-time information. Then process through complete METATRON v7.6 protocol. All 15 gates required.`;
+Process this data through complete METATRON v7.6 protocol. All 15 gates required.
+
+NOTE: You do not have web search in this environment. Analyze based on the data provided and your training knowledge. Clearly document any gaps where live data would be needed.`;
         break;
     }
 
-    // Call Claude API with web search tool (non-streaming for tool use)
-    const response = await anthropic.messages.create({
+    // Call Claude API with streaming
+    const stream = await anthropic.messages.stream({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 16384,
+      max_tokens: 8192,
       system: METATRON_SYSTEM_PROMPT,
-      tools: [
-        {
-          type: "web_search_20250305",
-          name: "web_search"
-        }
-      ],
       messages: [
         {
           role: 'user',
@@ -82,22 +80,21 @@ IMPORTANT: Use web search to gather current market data, verify claims, and get 
       ]
     });
 
-    // Extract text from response
-    let resultText = '';
-    for (const block of response.content) {
-      if (block.type === 'text') {
-        resultText += block.text;
-      }
-    }
-
-    // Return as SSE format for compatibility with frontend
+    // Create a readable stream for the response
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
-      start(controller) {
-        // Send the complete response as a single chunk
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: resultText })}\n\n`));
-        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-        controller.close();
+      async start(controller) {
+        try {
+          for await (const event of stream) {
+            if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`));
+            }
+          }
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+          controller.close();
+        } catch (error) {
+          controller.error(error);
+        }
       }
     });
 
@@ -125,7 +122,7 @@ export async function GET() {
     version: 'METATRON v7.6',
     gates: 15,
     hunter_modules: 12,
-    web_search: true,
-    message: 'Oracle Protocol Engine Ready with Web Search'
+    web_search: false,
+    message: 'Oracle Protocol Engine Ready (Web search requires SDK update)'
   });
 }
