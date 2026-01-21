@@ -37,21 +37,21 @@ export async function POST(request: NextRequest) {
 ORACLE INJECT:
 ${input}
 
-Run complete METATRON v7.6 protocol. Use web search to gather current market data, news, and financial information. Evaluate all 15 gates. Provide AIORA position sizing recommendation.`;
+IMPORTANT: Use web search to gather current market data, stock prices, recent news, and financial information for any tickers or companies mentioned. Then run complete METATRON v7.6 protocol. Evaluate all 15 gates with real data. Provide AIORA position sizing recommendation.`;
         break;
       case 'ORACLE':
         userMessage = `ORACLE - Context Package
 
 ${input}
 
-Extract thesis, summarize evidence, identify key claims. Use web search if needed to verify claims. Skip full gate evaluation.`;
+Use web search to verify claims and gather current data. Extract thesis, summarize evidence, identify key claims.`;
         break;
       case 'SCAN':
         userMessage = `SCAN - Quick Analysis
 
 ${input}
 
-Quick scan: Use web search to check current prices and recent news. Catalyst freshness score, HUNTER alerts, headline risk assessment only.`;
+Use web search to check current prices and recent news for any tickers mentioned. Catalyst freshness score, HUNTER alerts, headline risk assessment only.`;
         break;
       case 'ORACLE_INJECT':
       default:
@@ -59,14 +59,14 @@ Quick scan: Use web search to check current prices and recent news. Catalyst fre
 
 ${input}
 
-Process this data through complete METATRON v7.6 protocol. Use web search to verify claims and gather current market data. All 15 gates required.`;
+IMPORTANT: Use web search to gather current market data, verify claims, and get real-time information. Then process through complete METATRON v7.6 protocol. All 15 gates required.`;
         break;
     }
 
-    // Call Claude API with streaming and web search tool
-    const stream = await anthropic.messages.stream({
+    // Call Claude API with web search tool (non-streaming for tool use)
+    const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 8192,
+      max_tokens: 16384,
       system: METATRON_SYSTEM_PROMPT,
       tools: [
         {
@@ -82,21 +82,22 @@ Process this data through complete METATRON v7.6 protocol. Use web search to ver
       ]
     });
 
-    // Create a readable stream for the response
+    // Extract text from response
+    let resultText = '';
+    for (const block of response.content) {
+      if (block.type === 'text') {
+        resultText += block.text;
+      }
+    }
+
+    // Return as SSE format for compatibility with frontend
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
-      async start(controller) {
-        try {
-          for await (const event of stream) {
-            if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`));
-            }
-          }
-          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-          controller.close();
-        } catch (error) {
-          controller.error(error);
-        }
+      start(controller) {
+        // Send the complete response as a single chunk
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: resultText })}\n\n`));
+        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+        controller.close();
       }
     });
 
