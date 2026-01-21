@@ -150,17 +150,17 @@ export function DashboardCards() {
             </div>
           </HUDPanel>
 
-          {/* METATRON Panel */}
-          <HUDPanel title="METATRON" subtitle="Protocol Engine v7.6" href="/metatron">
+          {/* METATRON Panel - v7.7 */}
+          <HUDPanel title="METATRON" subtitle="Protocol Engine v7.7" href="/metatron">
             <div className="space-y-0.5">
-              <DataRow label="Gates" value="15/15" highlight />
-              <DataRow label="Failures" value="36 COV" />
-              <DataRow label="Directives" value="13 ARM" />
-              <DataRow label="Hunter" value="12 ACT" />
+              <DataRow label="Gates" value="16/16" highlight />
+              <DataRow label="Failures" value="50 COV" />
+              <DataRow label="Directives" value="14 ARM" />
+              <DataRow label="Hunter" value="14 ACT" />
             </div>
             <div className="mt-2 pt-2 border-t border-teal/20">
               <ProgressBar label="G0.5 Premise" value={100} />
-              <ProgressBar label="G5.5 Fresh" value={87} />
+              <ProgressBar label="G8.5 RegShock" value={100} />
               <ProgressBar label="G7.5 Counter" value={92} />
             </div>
             <div className="mt-1 text-center">
@@ -168,7 +168,7 @@ export function DashboardCards() {
             </div>
           </HUDPanel>
 
-          {/* THE COVENANT Panel - v7.6 HIERARCHY */}
+          {/* THE COVENANT Panel - v7.7 HIERARCHY */}
           <HUDPanel title="COVENANT" subtitle="Multi-Agent AI Collective" href="/covenant">
             <div className="space-y-1">
               {[
@@ -207,11 +207,11 @@ export function DashboardCards() {
             </div>
           </HUDPanel>
 
-          {/* DOCUMENTS Panel - No hover effect, no navigation */}
+          {/* DOCUMENTS Panel - v7.7 links */}
           <HUDPanel title="DOCUMENTS" subtitle="Protocol Specifications">
             <div className="space-y-0.5">
-              <DocLink title="METATRON v7.6 Full" type="MD" href="https://github.com/Barefootservants2/Ashes2Echoes/blob/main/ACTIVE/00_CORE_PROTOCOLS/METATRON_v7.6_FULL.md" />
-              <DocLink title="METATRON Compressed" type="MD" href="https://github.com/Barefootservants2/Ashes2Echoes/blob/main/ACTIVE/00_CORE_PROTOCOLS/METATRON_v7.6_COMPRESSED.md" />
+              <DocLink title="METATRON v7.7 Full" type="MD" href="https://github.com/Barefootservants2/Ashes2Echoes/blob/main/ACTIVE/00_CORE_PROTOCOLS/METATRON_v7.7_FULL.md" />
+              <DocLink title="METATRON Compressed" type="TXT" href="https://github.com/Barefootservants2/Ashes2Echoes/blob/main/ACTIVE/00_CORE_PROTOCOLS/metatron-v7.7-compressed.txt" />
               <DocLink title="AIORA Protocol" type="MD" href="https://github.com/Barefootservants2/Ashes2Echoes/blob/main/ACTIVE/00_CORE_PROTOCOLS/AIORA_QUICK_REFERENCE.md" />
               <DocLink title="FORGE CREATE" type="MD" href="#" />
               <DocLink title="Principal's Creed" type="MD" href="#" />
