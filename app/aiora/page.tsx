@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import { OracleInject } from "@/components/oracle-inject"
 
 export default function AioraPage() {
   return (
@@ -15,7 +14,6 @@ export default function AioraPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          {/* METATRON LOGO - STANDARDIZED: 100px, BRIGHT */}
           <div className="relative w-[100px] h-[100px] mb-4">
             <Image
               src="/images/metatron-logo.png"
@@ -55,7 +53,7 @@ export default function AioraPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* NIBBLE */}
-            <div className="relative bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-6 hover:border-teal/60 transition-all">
+            <div className="relative bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-6">
               <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-teal/60" />
               <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-teal/60" />
               <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-teal/60" />
@@ -70,7 +68,7 @@ export default function AioraPage() {
             </div>
 
             {/* STANDARD */}
-            <div className="relative bg-[rgba(10,15,25,0.9)] border border-gold/40 rounded p-6 hover:border-gold/70 transition-all">
+            <div className="relative bg-[rgba(10,15,25,0.9)] border border-gold/40 rounded p-6">
               <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-gold/60" />
               <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-gold/60" />
               <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-gold/60" />
@@ -86,7 +84,7 @@ export default function AioraPage() {
             </div>
 
             {/* CONVICTION */}
-            <div className="relative bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-6 hover:border-teal/60 transition-all">
+            <div className="relative bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-6">
               <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-teal/60" />
               <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-teal/60" />
               <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-teal/60" />
@@ -115,22 +113,22 @@ export default function AioraPage() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-teal/10 hover:bg-teal/5">
+                <tr className="border-b border-teal/10">
                   <td className="px-6 py-4 text-foreground/80">Large Cap (LC)</td>
                   <td className="px-6 py-4 text-center text-gold font-mono">-5%</td>
                   <td className="px-6 py-4 text-center text-red-400 font-mono">-8%</td>
                 </tr>
-                <tr className="border-b border-teal/10 hover:bg-teal/5">
+                <tr className="border-b border-teal/10">
                   <td className="px-6 py-4 text-foreground/80">Mid Cap (MC)</td>
                   <td className="px-6 py-4 text-center text-gold font-mono">-6%</td>
                   <td className="px-6 py-4 text-center text-red-400 font-mono">-10%</td>
                 </tr>
-                <tr className="border-b border-teal/10 hover:bg-teal/5">
+                <tr className="border-b border-teal/10">
                   <td className="px-6 py-4 text-foreground/80">Small Cap (SC)</td>
                   <td className="px-6 py-4 text-center text-gold font-mono">-8%</td>
                   <td className="px-6 py-4 text-center text-red-400 font-mono">-12%</td>
                 </tr>
-                <tr className="hover:bg-teal/5">
+                <tr>
                   <td className="px-6 py-4 text-foreground/80">Crypto</td>
                   <td className="px-6 py-4 text-center text-gold font-mono">-10%</td>
                   <td className="px-6 py-4 text-center text-red-400 font-mono">-15%</td>
@@ -168,25 +166,30 @@ export default function AioraPage() {
           </div>
         </section>
 
-        {/* Triggers */}
+        {/* Triggers - ENHANCED with descriptions and how to use */}
         <section className="mb-12">
           <h2 className="text-2xl font-light tracking-[0.2em] text-teal mb-6 text-center">COMMAND TRIGGERS</h2>
+          <p className="text-center text-sm text-foreground/50 mb-6">Use these commands in any MICHA conversation to activate protocols</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-4">
-              <code className="text-teal font-mono">MARKET WATCH</code>
-              <p className="text-sm text-foreground/60 mt-2">Full protocol execution — Scanner + Oracle + Context Package</p>
+            <div className="bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-5">
+              <code className="text-teal font-mono text-lg">MARKET WATCH</code>
+              <p className="text-sm text-foreground/60 mt-3 mb-2">Full protocol execution — Scanner + Oracle + Context Package</p>
+              <p className="text-xs text-teal/50">HOW: Type "MARKET WATCH" to MICHA for complete daily market analysis</p>
             </div>
-            <div className="bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-4">
-              <code className="text-teal font-mono">ORACLE</code>
-              <p className="text-sm text-foreground/60 mt-2">Context Package only — Elite investor tracking + sentiment</p>
+            <div className="bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-5">
+              <code className="text-teal font-mono text-lg">ORACLE</code>
+              <p className="text-sm text-foreground/60 mt-3 mb-2">Context Package only — Elite investor tracking + sentiment</p>
+              <p className="text-xs text-teal/50">HOW: Type "ORACLE" for quick smart money and sentiment snapshot</p>
             </div>
-            <div className="bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-4">
-              <code className="text-teal font-mono">SCAN</code>
-              <p className="text-sm text-foreground/60 mt-2">Scanner only — Quick market pulse check</p>
+            <div className="bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-5">
+              <code className="text-teal font-mono text-lg">SCAN</code>
+              <p className="text-sm text-foreground/60 mt-3 mb-2">Scanner only — Quick market pulse check</p>
+              <p className="text-xs text-teal/50">HOW: Type "SCAN" for fast market conditions overview</p>
             </div>
-            <div className="bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-4">
-              <code className="text-gold font-mono">ORACLE INJECT:</code>
-              <p className="text-sm text-foreground/60 mt-2">Ingest external data, then run full protocol</p>
+            <div className="bg-[rgba(10,15,25,0.9)] border border-gold/30 rounded p-5">
+              <code className="text-gold font-mono text-lg">ORACLE INJECT:</code>
+              <p className="text-sm text-foreground/60 mt-3 mb-2">Ingest external data, then run full protocol</p>
+              <p className="text-xs text-gold/50">HOW: Use Oracle Input on homepage, or paste data after "ORACLE INJECT:" command</p>
             </div>
           </div>
         </section>
@@ -237,9 +240,6 @@ export default function AioraPage() {
           </Link>
         </div>
       </div>
-
-      {/* Oracle Inject Component */}
-      <OracleInject />
 
       {/* Footer */}
       <footer className="border-t border-teal/20 py-6 text-center text-sm text-muted-foreground">
