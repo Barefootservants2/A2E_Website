@@ -1,4 +1,9 @@
 # Vercel Deploy Trigger
-Last deployment: 2026-01-21T08:52:00Z
-Build: METATRON v7.7 | FORGE v2.0 | Document Modals
-Commit: Full interactive FORGE + Dashboard card navigation + No-copy docs
+Last deployment: 2026-01-21T17:53:00Z
+Build: METATRON v7.7 | Oracle Gate Dots Update
+Changes: Gate status bars → color-coded dots with hover tooltips
+- Gray = Pending
+- Green (glow) = Pass
+- Yellow (glow) = Warning  
+- Red (glow) = Fail
+- Gate 8.5 has gold ring indicator
