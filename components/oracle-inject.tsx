@@ -281,12 +281,12 @@ export function OracleInject() {
     }
   }
 
-  const getGateColor = (status: GateStatus['status']) => {
+  const getGateDotColor = (status: GateStatus['status']) => {
     switch (status) {
-      case 'pass': return 'bg-green-500'
-      case 'fail': return 'bg-red-500'
-      case 'warning': return 'bg-yellow-500'
-      case 'processing': return 'bg-yellow-500 animate-pulse'
+      case 'pass': return 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]'
+      case 'fail': return 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]'
+      case 'warning': return 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.6)]'
+      case 'processing': return 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.6)] animate-pulse'
       default: return 'bg-gray-600'
     }
   }
@@ -374,9 +374,9 @@ export function OracleInject() {
           </span>
         </div>
 
-        {/* Gate Status Grid */}
+        {/* Gate Status - Dots with Tooltips */}
         <div className="mb-4 p-3 bg-[#0d1117] border border-teal/20 rounded-lg">
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] font-mono text-teal/70">GATE STATUS (v7.7)</span>
             {(passedGates > 0 || failedGates > 0 || warningGates > 0) && (
               <span className="text-[10px] font-mono">
@@ -386,17 +386,43 @@ export function OracleInject() {
               </span>
             )}
           </div>
-          <div className="grid grid-cols-8 md:grid-cols-16 gap-1">
+          <div className="flex items-center justify-center gap-2 flex-wrap">
             {gates.map((gate) => (
-              <div key={gate.gate} className="group relative" title={`Gate ${gate.gate}: ${gate.name}`}>
-                <div className={`h-6 rounded ${getGateColor(gate.status)} flex items-center justify-center ${gate.gate === '8.5' ? 'ring-1 ring-gold/50' : ''}`}>
-                  <span className="text-[7px] font-mono text-white/80">{gate.gate}</span>
-                </div>
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 bg-black/90 border border-teal/30 rounded text-[9px] font-mono text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                  {gate.name}{gate.gate === '8.5' && ' ★ NEW'}
+              <div key={gate.gate} className="group relative">
+                <div 
+                  className={`w-4 h-4 rounded-full ${getGateDotColor(gate.status)} cursor-pointer transition-all duration-200 hover:scale-125 ${gate.gate === '8.5' ? 'ring-2 ring-gold/50 ring-offset-1 ring-offset-[#0d1117]' : ''}`}
+                />
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 bg-black/95 border border-teal/40 rounded text-[10px] font-mono text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 shadow-lg">
+                  <div className="text-teal/80">Gate {gate.gate}</div>
+                  <div className="text-white font-semibold">{gate.name}</div>
+                  {gate.gate === '8.5' && <div className="text-gold text-[9px] mt-0.5">★ NEW in v7.7</div>}
+                  <div className={`text-[9px] mt-1 ${gate.status === 'pass' ? 'text-green-400' : gate.status === 'fail' ? 'text-red-400' : gate.status === 'warning' ? 'text-yellow-400' : 'text-gray-400'}`}>
+                    Status: {gate.status.toUpperCase()}
+                  </div>
+                  {/* Tooltip arrow */}
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-teal/40" />
                 </div>
               </div>
             ))}
+          </div>
+          {/* Legend */}
+          <div className="flex items-center justify-center gap-4 mt-3 pt-2 border-t border-teal/10">
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-gray-600" />
+              <span className="text-[9px] text-muted-foreground">Pending</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.5)]" />
+              <span className="text-[9px] text-muted-foreground">Pass</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 shadow-[0_0_6px_rgba(234,179,8,0.5)]" />
+              <span className="text-[9px] text-muted-foreground">Warning</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.5)]" />
+              <span className="text-[9px] text-muted-foreground">Fail</span>
+            </div>
           </div>
         </div>
 
