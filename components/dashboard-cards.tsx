@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 
-// HUD Panel Component
+// HUD Panel Component - Modified to handle href only on title click
 function HUDPanel({ 
   title, 
   subtitle, 
@@ -17,23 +17,32 @@ function HUDPanel({
   href?: string
   className?: string
 }) {
-  const content = (
-    <div className={`relative bg-[rgba(10,15,25,0.85)] backdrop-blur-md border border-teal/30 rounded-sm overflow-hidden group hover:border-teal/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,206,209,0.15)] h-full ${className}`}>
+  return (
+    <div className={`relative bg-[rgba(10,15,25,0.85)] backdrop-blur-md border border-teal/30 rounded-sm overflow-hidden h-full ${className}`}>
       {/* Corner accents */}
       <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-teal/60" />
       <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-teal/60" />
       <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-teal/60" />
       <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-teal/60" />
       
-      {/* Header */}
-      <div className="px-3 pt-3 pb-2 border-b border-teal/20">
-        <h3 className="text-teal font-semibold tracking-[0.15em] text-base">{title}</h3>
-        {subtitle && (
-          <p className="text-[10px] text-muted-foreground/70 tracking-wider mt-0.5 font-light uppercase">{subtitle}</p>
-        )}
-      </div>
+      {/* Header - clickable if href provided */}
+      {href ? (
+        <Link href={href} className="block px-3 pt-3 pb-2 border-b border-teal/20 hover:bg-teal/5 transition-colors">
+          <h3 className="text-teal font-semibold tracking-[0.15em] text-base hover:text-gold transition-colors">{title}</h3>
+          {subtitle && (
+            <p className="text-[10px] text-muted-foreground/70 tracking-wider mt-0.5 font-light uppercase">{subtitle}</p>
+          )}
+        </Link>
+      ) : (
+        <div className="px-3 pt-3 pb-2 border-b border-teal/20">
+          <h3 className="text-teal font-semibold tracking-[0.15em] text-base">{title}</h3>
+          {subtitle && (
+            <p className="text-[10px] text-muted-foreground/70 tracking-wider mt-0.5 font-light uppercase">{subtitle}</p>
+          )}
+        </div>
+      )}
       
-      {/* Content */}
+      {/* Content - NOT linked */}
       <div className="p-3 min-h-[160px]">
         {children}
       </div>
@@ -42,11 +51,6 @@ function HUDPanel({
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,206,209,0.1)_2px,rgba(0,206,209,0.1)_4px)]" />
     </div>
   )
-
-  if (href) {
-    return <Link href={href} className="block">{content}</Link>
-  }
-  return content
 }
 
 // Data Row Component - Compact
@@ -93,7 +97,7 @@ function StatusIndicator({ label, status }: { label: string; status: 'active' | 
   )
 }
 
-// Dropdown Selector Component - Compact
+// Dropdown Selector Component - Compact, functional
 function Dropdown({ label, options, defaultValue }: { label: string; options: string[]; defaultValue: string }) {
   const [value, setValue] = useState(defaultValue)
   return (
@@ -102,6 +106,7 @@ function Dropdown({ label, options, defaultValue }: { label: string; options: st
       <select 
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onClick={(e) => e.stopPropagation()}
         className="w-full bg-background/50 border border-teal/30 rounded-sm px-2 py-1.5 text-xs text-foreground/90 font-mono focus:border-teal/60 focus:outline-none appearance-none cursor-pointer"
         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%2340E0D0' d='M2 4l4 4 4-4'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 8px center' }}
       >
@@ -127,7 +132,7 @@ export function DashboardCards() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           
-          {/* AIORA Panel */}
+          {/* AIORA Panel - Click TITLE to navigate, dropdowns work locally */}
           <HUDPanel title="AIORA" subtitle="AI-Optimized Risk Assessment" href="/aiora">
             <Dropdown 
               label="Position Tier" 
@@ -202,7 +207,7 @@ export function DashboardCards() {
             </div>
           </HUDPanel>
 
-          {/* DOCUMENTS Panel */}
+          {/* DOCUMENTS Panel - No hover effect, no navigation */}
           <HUDPanel title="DOCUMENTS" subtitle="Protocol Specifications">
             <div className="space-y-0.5">
               <DocLink title="METATRON v7.6 Full" type="MD" href="https://github.com/Barefootservants2/Ashes2Echoes/blob/main/ACTIVE/00_CORE_PROTOCOLS/METATRON_v7.6_FULL.md" />
@@ -216,7 +221,7 @@ export function DashboardCards() {
             </div>
           </HUDPanel>
 
-          {/* N8N WORKFLOWS Panel */}
+          {/* N8N WORKFLOWS Panel - No href, no hover */}
           <HUDPanel title="N8N FLOWS" subtitle="Automation Workflows">
             <div className="space-y-0.5">
               {[
@@ -237,8 +242,8 @@ export function DashboardCards() {
             </div>
           </HUDPanel>
 
-          {/* STATE'S FINEST Panel */}
-          <HUDPanel title="STATE'S FINEST" subtitle="Satirical Apparel" href="/apparel">
+          {/* STATE'S FINEST Panel - No href since coming soon */}
+          <HUDPanel title="STATE'S FINEST" subtitle="Satirical Apparel">
             <div className="flex flex-col items-center justify-center h-[140px]">
               <div className="text-4xl mb-2 opacity-30">👕</div>
               <p className="text-gold font-mono text-xs tracking-wider mb-1">COMING SOON</p>
@@ -249,7 +254,7 @@ export function DashboardCards() {
             </div>
           </HUDPanel>
 
-          {/* CONTACT Panel */}
+          {/* CONTACT Panel - No href */}
           <HUDPanel title="CONTACT" subtitle="Ashes2Echoes, LLC">
             <div className="space-y-2">
               <div className="p-2 bg-background/30 rounded border border-teal/10">
