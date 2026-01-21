@@ -1,9 +1,2 @@
-# Vercel Deploy Trigger
-Last deployment: 2026-01-21T17:53:00Z
-Build: METATRON v7.7 | Oracle Gate Dots Update
-Changes: Gate status bars → color-coded dots with hover tooltips
-- Gray = Pending
-- Green (glow) = Pass
-- Yellow (glow) = Warning  
-- Red (glow) = Fail
-- Gate 8.5 has gold ring indicator
+Deploy trigger: 2026-01-21T18:31:00Z
+Changes: Test harness added (/test, /test/forge, /test/oracle)
