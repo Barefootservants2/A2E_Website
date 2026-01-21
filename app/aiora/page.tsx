@@ -4,8 +4,30 @@ import Image from "next/image"
 export default function AioraPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
+      {/* Top Navigation */}
+      <div className="bg-[#0a0a0f] border-b border-teal/20 px-6 py-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-[50px] h-[50px]">
+              <Image 
+                src="/images/metatron-logo.png" 
+                alt="Logo" 
+                fill 
+                className="object-contain"
+                style={{ filter: 'brightness(1.5) saturate(1.5) drop-shadow(0 0 15px rgba(0,206,209,1))' }}
+              />
+            </div>
+            <span className="text-teal group-hover:text-gold transition-colors">← Command Center</span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-xs font-mono text-teal">AIORA PROTOCOL</span>
+          </div>
+        </div>
+      </div>
+
       {/* Hero Header */}
-      <div className="relative h-[30vh] min-h-[200px] overflow-hidden">
+      <div className="relative h-[25vh] min-h-[180px] overflow-hidden">
         <Image
           src="/images/angel-hero.jpg"
           alt="Background"
@@ -14,22 +36,19 @@ export default function AioraPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="relative w-[100px] h-[100px] mb-4">
+          <div className="relative w-[80px] h-[80px] mb-3">
             <Image
               src="/images/metatron-logo.png"
               alt="Metatrons Cube"
               fill
               className="object-contain"
-              style={{ filter: 'brightness(1.5) saturate(1.5) drop-shadow(0 0 25px rgba(0,206,209,1)) drop-shadow(0 0 50px rgba(0,206,209,0.7))' }}
-              quality={100}
+              style={{ filter: 'brightness(1.5) saturate(1.5) drop-shadow(0 0 25px rgba(0,206,209,1))' }}
             />
-            <div className="absolute inset-[-8px] rounded-full border-2 border-teal/60 animate-pulse" style={{ animationDuration: '2s' }} />
-            <div className="absolute inset-[-16px] rounded-full border border-teal/30 animate-pulse" style={{ animationDuration: '3s', animationDelay: '0.5s' }} />
           </div>
-          <h1 className="text-4xl md:text-6xl font-extralight tracking-[0.3em] text-teal drop-shadow-[0_0_30px_rgba(0,206,209,0.5)]">
+          <h1 className="text-4xl md:text-5xl font-extralight tracking-[0.3em] text-teal">
             AIORA
           </h1>
-          <p className="mt-2 text-sm md:text-base tracking-[0.2em] text-foreground/60 uppercase">
+          <p className="mt-2 text-sm tracking-[0.2em] text-foreground/60 uppercase">
             AI-Optimized Risk Assessment
           </p>
         </div>
@@ -229,11 +248,11 @@ export default function AioraPage() {
           </div>
         </section>
 
-        {/* Back Link */}
-        <div className="text-center mb-12">
+        {/* Bottom Navigation */}
+        <div className="text-center mb-8">
           <Link 
             href="/" 
-            className="inline-flex items-center gap-2 text-teal hover:text-gold transition-colors"
+            className="inline-flex items-center gap-2 text-teal hover:text-gold transition-colors text-lg"
           >
             <span>←</span>
             <span>Return to Command Center</span>
