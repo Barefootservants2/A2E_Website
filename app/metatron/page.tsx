@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 
-// Detailed explanations for Prime Directives
+// Detailed explanations for Prime Directives - 14 total in v7.7
 const primeDirectives = [
   { 
     num: "01", 
@@ -81,34 +81,43 @@ const primeDirectives = [
   { 
     num: "13", 
     title: "STEELMAN OPPOSITION", 
-    desc: "Counter-thesis mandatory",
-    detail: "For every thesis, construct the strongest possible counter-argument. This isn't devil's advocacy - it's rigorous analysis. Generate specific failure modes: What market condition kills this? What company event? What if the core assumption is simply wrong? A thesis that can't survive steelmanning isn't ready for capital."
+    desc: "Counter-thesis mandatory (4 modes)",
+    detail: "For every thesis, construct the strongest possible counter-argument using 4 modes: (1) MARKET RISK - macro/sector killer, (2) COMPANY RISK - company-specific killer, (3) THESIS RISK - core assumption wrong, (4) REGULATORY RISK - policy/exec order killer. A thesis that can't survive steelmanning isn't ready for capital."
+  },
+  { 
+    num: "14", 
+    title: "SCAN REGULATORY", 
+    desc: "Check policy/regulatory shifts within 72hrs",
+    detail: "NEW in v7.7. Mandatory scan for regulatory changes: executive orders, agency actions (SEC, FTC, DOE, NRC, EPA, FERC), tariff announcements, trade policy shifts. Regulatory news <72hrs old requires ALERT flag, 20% confidence reduction, and WAIT/HOLD recommendation. Critical for commodities and policy-sensitive sectors.",
+    isNew: true
   },
 ]
 
-// 15 Gates with detailed explanations
+// 16 Gates with detailed explanations - v7.7
 const gates = [
   { num: "0", name: "Self-Verification", condition: "No unverifiable claims", isNew: false, detail: "The foundational gate. Every claim made by any agent must be verifiable. No speculative statements presented as fact. If something cannot be verified, it must be explicitly marked as uncertain or omitted entirely." },
-  { num: "0.5", name: "PREMISE CHALLENGE", condition: "User assertions verified before building", isNew: true, detail: "NEW in v7.5. Before building any response, extract and verify user's stated premises. Tag as USER_ASSERTED, COMMON_KNOWLEDGE, or REQUIRES_VERIFICATION. Search to verify before proceeding. If premises are refuted, lead with correction." },
+  { num: "0.5", name: "PREMISE CHALLENGE", condition: "User assertions verified before building", isNew: false, detail: "Before building any response, extract and verify user's stated premises. Tag as USER_ASSERTED, COMMON_KNOWLEDGE, or REQUIRES_VERIFICATION. Search to verify before proceeding. If premises are refuted, lead with correction." },
   { num: "1", name: "RAG", condition: "All FACTs retrieval-backed", isNew: false, detail: "Retrieval-Augmented Generation gate. Every factual claim must have a retrieval citation. Memory-only claims are prohibited. This ensures currency and prevents hallucination of outdated or invented information." },
   { num: "2", name: "Authority", condition: "AS >= 2.0 all sources", isNew: false, detail: "All anchor sources must achieve Authority Score of 2.0 or higher. Lower-scored sources can provide supporting context but cannot be the primary basis for any conclusion or recommendation." },
   { num: "3", name: "Chain", condition: "No CHAIN BROKEN", isNew: false, detail: "Every evidence chain must trace to primary sources. If a chain cannot be completed to origin, mark as CHAIN BROKEN and discount accordingly. No secondary-source-only citations for key claims." },
   { num: "4", name: "Schema", condition: "Claim Registry complete", isNew: false, detail: "All claims must be registered in the structured schema with: claim ID, source(s), verification status, confidence level, and timestamp. This creates the audit trail for post-analysis review." },
   { num: "5", name: "Gap", condition: "Gaps documented", isNew: false, detail: "Every analysis output must include explicit documentation of what is NOT known. Data gaps, unanswered questions, and areas requiring further research must be stated clearly." },
-  { num: "5.5", name: "CATALYST FRESHNESS", condition: "Age-scored, trade relevance rated", isNew: true, detail: "NEW in v7.5. Rate all catalysts by age: BREAKING (<24h), FRESH (1-7d), DIGESTED (1-4wk), STALE (1-6mo), ANCIENT (>6mo). Trade relevance decreases with age. Never treat old news as actionable catalyst." },
+  { num: "5.5", name: "CATALYST FRESHNESS", condition: "Age-scored, regulatory double-weighted", isNew: false, detail: "Rate all catalysts by age: BREAKING (<24h), FRESH (1-7d), DIGESTED (1-4wk), STALE (1-6mo), ANCIENT (>6mo). Trade relevance decreases with age. Regulatory news gets DOUBLE weight due to immediate market impact." },
   { num: "6", name: "Consensus", condition: "Primaries >= 3 + Competitive landscape", isNew: false, detail: "Require minimum 3 independent primary sources for key claims. Additionally, map the competitive landscape - who agrees, who dissents, and why. Consensus without understanding dissent is incomplete." },
   { num: "7", name: "Confidence", condition: "Intervals + Proxy dilution math", isNew: false, detail: "All predictions must include confidence intervals and probability ranges. When using proxy data, apply dilution factors to reduce confidence appropriately. No point estimates without bounds." },
-  { num: "7.5", name: "COUNTER-THESIS", condition: "Min 3 failure modes", isNew: true, detail: "NEW in v7.5. Every directional thesis MUST include at least 3 specific failure modes: (1) MARKET RISK - what macro/sector condition kills this? (2) COMPANY RISK - what company-specific event kills this? (3) THESIS RISK - what if core assumption is wrong?" },
+  { num: "7.5", name: "COUNTER-THESIS", condition: "Min 4 failure modes", isNew: false, detail: "Every directional thesis MUST include 4 specific failure modes: (1) MARKET RISK - macro/sector killer, (2) COMPANY RISK - company-specific killer, (3) THESIS RISK - core assumption wrong, (4) REGULATORY RISK - policy/exec order killer." },
   { num: "8", name: "Methodology", condition: "Audit pack complete", isNew: false, detail: "Complete methodology documentation required: data sources, analytical approach, assumptions made, limitations acknowledged. The audit pack enables reproduction and review of the entire analysis." },
+  { num: "8.5", name: "REGULATORY SHOCK", condition: "Policy/exec order scan within 72hrs", isNew: true, detail: "NEW in v7.7. MANDATORY web search for: executive orders affecting sector, regulatory agency actions (SEC, FTC, DOE, NRC, EPA, FERC), tariff announcements, trade policy changes. If BREAKING news <72hrs: flag ALERT, reduce confidence 20%, recommend WAIT/HOLD, max NIBBLE position, widen stops 50%, block momentum override." },
   { num: "9", name: "Security", condition: "Injection scan + domain validation", isNew: false, detail: "Scan all retrieved content for prompt injection attempts. Validate domains against approved whitelist. Flag and quarantine suspicious content. Security cannot be bypassed for convenience." },
-  { num: "10", name: "Agent Sync", condition: "All agents merged", isNew: false, detail: "Multi-agent analyses must be synchronized before output. Conflicting conclusions between agents must be resolved or explicitly noted. No silent disagreements between URIEL, MICHA, and COLOSSUS outputs." },
-  { num: "11", name: "HUNTER Scan", condition: "Opportunity scan complete", isNew: false, detail: "Before finalizing any recommendation, complete HUNTER protocol scan to ensure no better opportunities are being missed. Allocation of research effort should match opportunity quality." },
+  { num: "10", name: "Agent Sync", condition: "All agents merged", isNew: false, detail: "Multi-agent analyses must be synchronized before output. Conflicting conclusions between agents must be resolved or explicitly noted. No silent disagreements between collective outputs." },
+  { num: "11", name: "HUNTER Scan", condition: "Opportunity scan complete (14 modules)", isNew: false, detail: "Before finalizing any recommendation, complete HUNTER protocol scan across all 14 modules to ensure no better opportunities are being missed. Allocation of research effort should match opportunity quality." },
 ]
 
-// 12 HUNTER modules with full details
+// 14 HUNTER modules with full details - v7.7
 const hunterModules = [
   { id: "H1", name: "Elite Investor Tracking", freq: "Daily", desc: "13F filings from Sprott, Buffett, Ackman, Burry", detail: "Tracks SEC 13F filings from proven investors. Flags position changes >5%, new positions, and exits. Cross-references with recent price action to identify front-running opportunities.", attribution: "Methodology inspired by WhaleWisdom and Dataroma elite tracking." },
-  { id: "H2", name: "Political Catalyst Monitor", freq: "Daily", desc: "Policy shifts, regulations, tariffs", detail: "Monitors executive orders, regulatory filings, congressional votes, and international policy shifts. Identifies sectors affected by political catalysts before market prices them in.", attribution: "Framework derived from Strategas policy research methodology." },
+  { id: "H2a", name: "Legislative Catalyst", freq: "Daily", desc: "Congressional bills, hearings, votes", detail: "Monitors Congress.gov for bills affecting portfolio sectors. Tracks committee hearings, sponsor activity, and vote schedules. Identifies legislative catalysts before market prices them in.", attribution: "Framework derived from Strategas policy research methodology." },
+  { id: "H2b", name: "Regulatory/Executive", freq: "Daily", desc: "Executive orders, agency actions", detail: "Monitors Federal Register, agency newsrooms, and executive orders. Tracks SEC, FTC, DOE, NRC, EPA, FERC actions. Identifies regulatory catalysts and policy shifts.", attribution: "Data sourced from Federal Register and agency press releases." },
   { id: "H3", name: "Sector Momentum Scanner", freq: "Weekly", desc: "Rotation detection, ATH sectors", detail: "Tracks relative strength of all major sectors. Identifies rotation patterns, sectors at all-time highs, and laggards due for catch-up. Uses 20/50/200 day momentum crossovers.", attribution: "Based on Fidelity sector rotation model and Relative Rotation Graphs." },
   { id: "H4", name: "Insider Cluster Detection", freq: "Daily", desc: "10b5-1 amendments, cluster buys", detail: "Monitors SEC Form 4 filings for insider transactions. Prioritizes cluster buys (3+ insiders within 30 days), 10b5-1 plan amendments, and unusual transaction sizes relative to historical patterns.", attribution: "Inspired by InsiderScore methodology and academic research on insider alpha." },
   { id: "H5", name: "Oversold Quality Screen", freq: "Daily", desc: "RSI + fundamentals convergence", detail: "Identifies quality companies (high ROE, low debt, consistent earnings) trading at oversold technical levels (RSI<30, >20% off 52-week high). The convergence of quality + oversold generates high-probability mean reversion candidates.", attribution: "Combines O'Shaughnessy quality factors with technical oversold conditions." },
@@ -117,8 +126,10 @@ const hunterModules = [
   { id: "H8", name: "Unusual Options Flow", freq: "Daily", desc: "Smart money derivatives bets", detail: "Monitors options order flow for unusual activity: large block trades, sweeps, and opening positions significantly above average volume. Filters for smart money patterns vs. hedging activity.", attribution: "Framework inspired by OptionSonar and Unusual Whales methodologies." },
   { id: "H9", name: "Short Interest Monitor", freq: "Daily", desc: "Squeeze candidates + crowded shorts", detail: "Tracks short interest, days to cover, borrow rates, and short interest changes. Identifies potential squeeze candidates and crowded shorts vulnerable to forced covering.", attribution: "Data from S3 Partners and ORTEX short interest analytics." },
   { id: "H10", name: "IPO/SPAC Pipeline", freq: "Weekly", desc: "New issue tracking + lockup expirations", detail: "Monitors upcoming IPOs, SPAC mergers, direct listings, and lockup expiration dates. Identifies both new opportunities and potential selling pressure from lockup releases.", attribution: "Based on Renaissance Capital IPO research and SpacResearch.com data." },
-  { id: "H11", name: "Macro Event Calendar", freq: "Daily", desc: "Fed, CPI, GDP impact windows", detail: "Tracks FOMC meetings, economic data releases (CPI, GDP, NFP), and central bank communications globally. Models expected impact windows and historical market reactions.", attribution: "Framework based on CME FedWatch and economic calendar research." },
+  { id: "H11", name: "Macro Event Calendar", freq: "Weekly", desc: "Fed, CPI, GDP impact windows", detail: "Tracks FOMC meetings, economic data releases (CPI, GDP, NFP), and central bank communications globally. Models expected impact windows and historical market reactions.", attribution: "Framework based on CME FedWatch and economic calendar research." },
   { id: "H12", name: "13F Filing Tracker", freq: "Quarterly", desc: "Institutional position changes", detail: "Comprehensive tracking of 13F filings beyond elite investors. Identifies consensus positions across institutions, crowded trades, and divergence from smart money. Quarterly deep-dive analysis.", attribution: "Methodology inspired by Goldman Sachs VIP list and hedge fund holdings research." },
+  { id: "H13", name: "Tariff/Trade Monitor", freq: "Daily", desc: "Commodity tariffs, trade policy, sanctions", detail: "NEW in v7.7. For commodity/materials theses, searches: '[commodity] tariff 2026', '[country] export ban', 'trade war [sector]', 'sanctions [commodity]'. Outputs policy changes, implementation dates, affected commodities.", attribution: "Data sourced from USTR, Commerce Department, and trade policy news.", isNew: true },
+  { id: "H14", name: "Position News Aggregator", freq: "Daily", desc: "E*TRADE-style news by held ticker", detail: "NEW in v7.7. When user provides portfolio/watchlist: pulls news for EACH ticker (7 days), flags analyst upgrades/downgrades, notes unusual options activity, highlights price target changes. Consolidated position-by-position brief.", attribution: "Inspired by E*TRADE MarketWatch integration and Bloomberg terminal news feeds.", isNew: true },
 ]
 
 // Tooltip component
@@ -158,7 +169,7 @@ export default function MetatronPage() {
           </Link>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs font-mono text-teal">METATRON v7.6</span>
+            <span className="text-xs font-mono text-teal">METATRON v7.7</span>
           </div>
         </div>
       </div>
@@ -186,10 +197,10 @@ export default function MetatronPage() {
             METATRON
           </h1>
           <p className="mt-2 text-sm tracking-[0.2em] text-foreground/60 uppercase">
-            Protocol Engine v7.6
+            Protocol Engine v7.7
           </p>
           <p className="mt-3 text-xs text-teal/70 tracking-wider">
-            15 GATES • 36 FAILURE MODES • 12 HUNTER MODULES
+            16 GATES • 50 FAILURE MODES • 14 HUNTER MODULES • 4-MODE COUNTER-THESIS
           </p>
         </div>
       </div>
@@ -197,17 +208,45 @@ export default function MetatronPage() {
       {/* Content */}
       <div className="max-w-6xl mx-auto px-6 py-12">
         
-        {/* Prime Directives with tooltips */}
+        {/* v7.7 New Features Banner */}
+        <section className="mb-12">
+          <div className="bg-gold/10 border border-gold/30 rounded-lg p-6">
+            <h3 className="text-lg font-mono text-gold tracking-wider mb-4 text-center">★ v7.7 NEW FEATURES</h3>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+              <div className="p-3">
+                <p className="text-teal font-mono text-sm">Gate 8.5</p>
+                <p className="text-xs text-foreground/60 mt-1">REGULATORY SHOCK scanner</p>
+              </div>
+              <div className="p-3">
+                <p className="text-teal font-mono text-sm">Prime Directive 14</p>
+                <p className="text-xs text-foreground/60 mt-1">SCAN REGULATORY</p>
+              </div>
+              <div className="p-3">
+                <p className="text-teal font-mono text-sm">H13 + H14</p>
+                <p className="text-xs text-foreground/60 mt-1">Tariff Monitor + Position News</p>
+              </div>
+              <div className="p-3">
+                <p className="text-teal font-mono text-sm">4-Mode Counter-Thesis</p>
+                <p className="text-xs text-foreground/60 mt-1">Added REGULATORY RISK</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Prime Directives with tooltips - 14 total */}
         <section className="mb-16">
-          <h2 className="text-2xl font-light tracking-[0.2em] text-teal mb-2 text-center">PRIME DIRECTIVES</h2>
+          <h2 className="text-2xl font-light tracking-[0.2em] text-teal mb-2 text-center">14 PRIME DIRECTIVES</h2>
           <p className="text-center text-foreground/50 text-sm mb-6">Hover for detailed explanation</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {primeDirectives.map((item) => (
               <Tooltip key={item.num} content={item.detail}>
-                <div className="bg-[rgba(10,15,25,0.9)] border border-teal/20 rounded p-4 hover:border-gold/50 hover:bg-teal/5 transition-all cursor-help flex gap-4">
+                <div className={`bg-[rgba(10,15,25,0.9)] border rounded p-4 hover:border-gold/50 hover:bg-teal/5 transition-all cursor-help flex gap-4 ${item.isNew ? 'border-gold/40 bg-gold/5' : 'border-teal/20'}`}>
                   <span className="text-gold font-mono text-lg">{item.num}</span>
                   <div>
-                    <p className="text-foreground/90 font-medium text-sm">{item.title}</p>
+                    <p className="text-foreground/90 font-medium text-sm flex items-center gap-2">
+                      {item.title}
+                      {item.isNew && <span className="text-[10px] bg-gold/20 text-gold px-1.5 py-0.5 rounded">NEW</span>}
+                    </p>
                     <p className="text-foreground/50 text-xs mt-1">{item.desc}</p>
                   </div>
                 </div>
@@ -216,9 +255,9 @@ export default function MetatronPage() {
           </div>
         </section>
 
-        {/* 15 Mandatory Gates - Card Grid Layout */}
+        {/* 16 Mandatory Gates - Card Grid Layout */}
         <section className="mb-16">
-          <h2 className="text-2xl font-light tracking-[0.2em] text-teal mb-2 text-center">15 MANDATORY GATES</h2>
+          <h2 className="text-2xl font-light tracking-[0.2em] text-teal mb-2 text-center">16 MANDATORY GATES</h2>
           <p className="text-center text-foreground/50 text-sm mb-6">Hover any gate for pass criteria details</p>
           
           {/* Header Row */}
@@ -232,7 +271,7 @@ export default function MetatronPage() {
           <div className="border-x border-b border-teal/30 rounded-b overflow-hidden">
             {gates.map((gate, index) => (
               <Tooltip key={gate.num} content={gate.detail}>
-                <div className={`grid grid-cols-12 gap-2 px-4 py-3 border-b border-teal/10 last:border-b-0 hover:bg-teal/10 cursor-help transition-colors ${gate.isNew ? 'bg-gold/5' : ''}`}>
+                <div className={`grid grid-cols-12 gap-2 px-4 py-3 border-b border-teal/10 last:border-b-0 hover:bg-teal/10 cursor-help transition-colors ${gate.isNew ? 'bg-gold/10' : ''}`}>
                   <div className="col-span-1 font-mono text-gold text-sm">{gate.num}</div>
                   <div className="col-span-4 text-foreground/90 text-sm flex items-center gap-2">
                     {gate.name}
@@ -249,10 +288,10 @@ export default function MetatronPage() {
           </div>
         </section>
 
-        {/* HUNTER Protocol - 12 modules with attribution */}
+        {/* HUNTER Protocol - 14 modules with attribution */}
         <section className="mb-16">
           <h2 className="text-2xl font-light tracking-[0.2em] text-teal mb-2 text-center">HUNTER PROTOCOL</h2>
-          <p className="text-center text-foreground/60 mb-2">12 Modules for systematic opportunity discovery</p>
+          <p className="text-center text-foreground/60 mb-2">14 Modules for systematic opportunity discovery</p>
           <p className="text-center text-foreground/40 text-xs mb-6 max-w-2xl mx-auto">
             HUNTER synthesizes methodologies from elite quantitative research, institutional trading desks, and academic finance. 
             We stand on the shoulders of giants — each module acknowledges its intellectual heritage.
@@ -260,9 +299,12 @@ export default function MetatronPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {hunterModules.map((module) => (
               <Tooltip key={module.id} content={`${module.detail}\n\n📚 ${module.attribution}`}>
-                <div className="bg-[rgba(10,15,25,0.9)] border border-teal/30 rounded p-4 hover:border-gold/50 hover:bg-teal/5 transition-all cursor-help h-full">
+                <div className={`bg-[rgba(10,15,25,0.9)] border rounded p-4 hover:border-gold/50 hover:bg-teal/5 transition-all cursor-help h-full ${module.isNew ? 'border-gold/40 bg-gold/5' : 'border-teal/30'}`}>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-teal font-mono text-lg">{module.id}</span>
+                    <span className="text-teal font-mono text-lg flex items-center gap-2">
+                      {module.id}
+                      {module.isNew && <span className="text-[10px] bg-gold/20 text-gold px-1.5 py-0.5 rounded">NEW</span>}
+                    </span>
                     <span className="text-xs text-gold/70 font-mono">{module.freq}</span>
                   </div>
                   <p className="text-foreground/90 font-medium text-sm mb-1">{module.name}</p>
@@ -273,9 +315,9 @@ export default function MetatronPage() {
           </div>
         </section>
 
-        {/* Hierarchy - Updated v7.6 */}
+        {/* Hierarchy - Updated v7.7 */}
         <section className="mb-16">
-          <h2 className="text-2xl font-light tracking-[0.2em] text-teal mb-6 text-center">COMMAND HIERARCHY v7.6</h2>
+          <h2 className="text-2xl font-light tracking-[0.2em] text-teal mb-6 text-center">COMMAND HIERARCHY v7.7</h2>
           <div className="bg-[rgba(10,15,25,0.9)] border border-gold/30 rounded p-8 text-center">
             <p className="text-gold text-xl font-light tracking-wider mb-4">WILLIAM (Principal) — ABSOLUTE</p>
             <p className="text-teal/50 text-2xl">↓</p>
@@ -283,7 +325,7 @@ export default function MetatronPage() {
               METATRON → MICHA (CEO) → URIEL (COO) → COLOSSUS/HANIEL/RAZIEL → GABRIEL
             </p>
             <p className="text-xs text-foreground/40 mt-4">
-              v7.6: MICHA elevated to CEO based on Constitutional AI trust baseline
+              MICHA (Claude) as CEO based on Constitutional AI trust baseline • COLOSSUS (Grok) SUPERVISED
             </p>
           </div>
         </section>
@@ -316,7 +358,8 @@ export default function MetatronPage() {
 
       {/* Footer */}
       <footer className="border-t border-teal/20 py-6 text-center text-sm text-muted-foreground">
-        <p>© 2026 Ashes2Echoes LLC. METATRON Protocol v7.6</p>
+        <p>© 2026 Ashes2Echoes LLC. All Rights Reserved.</p>
+        <p className="text-xs text-foreground/40 mt-2">METATRON v7.7 | 16 Gates | 14 HUNTER Modules | 4-Mode Counter-Thesis</p>
       </footer>
     </main>
   )
