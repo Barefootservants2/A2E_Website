@@ -28,43 +28,93 @@ export async function POST(request: NextRequest) {
     // Detect trigger type
     const trigger = detectTrigger(input);
     
-    // Build the user message based on trigger
+    // Build the user message based on trigger - UPDATED for v7.7
     let userMessage = '';
     switch (trigger) {
       case 'MARKET_WATCH':
-        userMessage = `MARKET WATCH - Full Protocol Analysis
+        userMessage = `MARKET WATCH - Full Protocol Analysis (METATRON v7.7)
 
 ORACLE INJECT:
 ${input}
 
-IMPORTANT: Use web search to gather current market data, stock prices, recent news, and financial information for any tickers or companies mentioned. Search for each ticker individually. Then run complete METATRON v7.6 protocol. Evaluate all 15 gates with real data. Provide AIORA position sizing recommendation.`;
+CRITICAL INSTRUCTIONS:
+1. Use web search to gather current market data, stock prices, recent news for ALL tickers mentioned
+2. **MANDATORY Gate 8.5 REGULATORY SCAN** - Search for:
+   - "[sector] executive order January 2026"
+   - "[sector] regulatory policy 2026"
+   - "[sector] tariff January 2026"
+   - "FERC PJM policy data center" (if energy/data center related)
+   - Look for ANY policy shifts within past 72 hours
+3. Run complete METATRON v7.7 protocol with all 16 gates
+4. Provide AIORA position sizing with regulatory status
+5. Generate 4 counter-thesis modes: MARKET, COMPANY, THESIS, REGULATORY
+
+If ANY breaking regulatory news is found (<72hrs), flag as ⚠️ REGULATORY SHOCK and adjust recommendation accordingly.`;
         break;
+        
       case 'ORACLE':
-        userMessage = `ORACLE - Context Package
+        userMessage = `ORACLE - Context Package (METATRON v7.7)
 
 ${input}
 
-Use web search to verify claims and gather current data. Extract thesis, summarize evidence, identify key claims.`;
+Use web search to verify claims and gather current data. Include a quick regulatory scan. Extract thesis, summarize evidence, identify key claims.`;
         break;
+        
       case 'SCAN':
-        userMessage = `SCAN - Quick Analysis
+        userMessage = `SCAN - Quick Analysis (METATRON v7.7)
 
 ${input}
 
-Use web search to check current prices and recent news for any tickers mentioned. Catalyst freshness score, HUNTER alerts, headline risk assessment only.`;
+Use web search to check current prices and recent news for any tickers mentioned. Catalyst freshness score, HUNTER alerts, headline risk assessment. Include quick regulatory check.`;
         break;
+        
+      case 'REG_SCAN':
+        userMessage = `REGULATORY SCAN - Gate 8.5 Deep Dive (METATRON v7.7)
+
+${input}
+
+FOCUS: Regulatory and policy risk analysis only.
+
+MANDATORY SEARCHES:
+1. "[sector/ticker] executive order 2026"
+2. "[sector/ticker] regulatory action January 2026"
+3. "[sector/ticker] tariff 2026"
+4. "[sector] policy change"
+5. "FERC NERC SEC FTC DOE [sector] ruling"
+
+For EACH search result:
+- Date of news/action
+- Agency or authority involved
+- Direct impact on thesis
+- Confidence adjustment required
+
+Output format:
+- REGULATORY STATUS: CLEAR / MONITORING / HOLD / ALERT
+- News found within 24h: [list]
+- News found within 72h: [list]
+- Policy shifts detected: [list]
+- Confidence adjustment: [+/- X%]
+- Recommended action: [PROCEED / WAIT / REDUCE / EXIT]`;
+        break;
+        
       case 'ORACLE_INJECT':
       default:
-        userMessage = `ORACLE INJECT - Full Protocol
+        userMessage = `ORACLE INJECT - Full Protocol (METATRON v7.7)
 
 ${input}
 
-IMPORTANT: Use web search to gather current market data, verify claims, and get real-time information. Search for relevant tickers and news. Then process through complete METATRON v7.6 protocol. All 15 gates required.`;
+CRITICAL INSTRUCTIONS:
+1. Use web search to gather current market data, verify claims, and get real-time information
+2. Search for relevant tickers and news
+3. **MANDATORY Gate 8.5 REGULATORY SCAN** - Must search for regulatory/policy news within 72hrs
+4. Process through complete METATRON v7.7 protocol - all 16 gates
+5. Include 4 counter-thesis modes with explicit REGULATORY RISK
+
+Generate comprehensive analysis with regulatory status clearly indicated.`;
         break;
     }
 
     // Call Claude API with web search tool
-    // Using 'as any' to handle newer tool types not yet in SDK types
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 16384,
@@ -118,14 +168,15 @@ IMPORTANT: Use web search to gather current market data, verify claims, and get 
   }
 }
 
-// Health check
+// Health check - UPDATED for v7.7
 export async function GET() {
   return NextResponse.json({
     status: 'online',
-    version: 'METATRON v7.6',
-    gates: 15,
-    hunter_modules: 12,
+    version: 'METATRON v7.7',
+    gates: 16,
+    hunter_modules: 14,
     web_search: true,
-    message: 'Oracle Protocol Engine Ready with Web Search'
+    features: ['regulatory_scan', 'save_local', 'export_md', 'export_json'],
+    message: 'Oracle Protocol Engine Ready - Gate 8.5 Regulatory Shock Active'
   });
 }
