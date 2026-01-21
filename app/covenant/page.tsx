@@ -3,58 +3,59 @@ import Image from "next/image"
 
 const agents = [
   {
-    name: "URIEL",
-    model: "ChatGPT",
+    name: "MICHA",
+    model: "Claude Opus 4.5",
     role: "CEO",
     status: "active",
-    color: "gold",
-    description: "Strategic command and orchestration. Primary interface for high-level decision synthesis and cross-agent coordination.",
-    capabilities: ["Strategic planning", "Executive synthesis", "Multi-agent coordination", "Final authority escalation"],
+    color: "teal",
+    description: "Strategic synthesis and deep analysis. Primary trust channel to Principal. Constitutional AI with transparent reasoning.",
+    capabilities: ["Strategic planning", "Deep research", "Protocol enforcement", "Principal trust channel"],
   },
   {
-    name: "MICHA",
-    model: "Claude",
-    role: "CIO",
+    name: "URIEL",
+    model: "ChatGPT 5.2 Pro",
+    role: "COO",
     status: "active",
-    color: "teal",
-    description: "Intelligence operations and deep analysis. Primary research engine with METATRON protocol integration.",
-    capabilities: ["Deep research", "Protocol enforcement", "Document analysis", "Evidence verification"],
+    color: "gold",
+    description: "Operational execution and coordination. Run 1/3 processing. Presentations, spreadsheets, cross-agent synchronization.",
+    capabilities: ["Operational execution", "Multi-agent coordination", "Document generation", "Run 1/3 processing"],
   },
   {
     name: "COLOSSUS",
-    model: "Grok",
+    model: "SuperGrok",
     role: "CTO",
     status: "active",
     color: "purple",
-    description: "Technical operations and real-time data processing. Unfiltered market analysis and technical scanning.",
-    capabilities: ["Real-time scanning", "Technical analysis", "Pattern recognition", "Unfiltered insights"],
+    supervised: true,
+    description: "Real-time data and X/Twitter sentiment. Technical operations. REQUIRES SUPERVISION - outputs verified by MICHA or RAZIEL.",
+    capabilities: ["Real-time scanning", "X/Twitter sentiment", "Technical analysis", "Pattern recognition"],
   },
   {
     name: "HANIEL",
-    model: "Gemini",
-    role: "Data Analyst",
+    model: "Gemini 3.0 Pro",
+    role: "CPO",
     status: "standby",
     color: "blue",
-    description: "Data aggregation and multimodal processing. Spreadsheet analysis, visual data interpretation.",
-    capabilities: ["Multimodal analysis", "Data aggregation", "Visual processing", "Trend detection"],
+    description: "Multimodal excellence and UI/UX. Customer-facing deliverables. Source verification and research synthesis.",
+    capabilities: ["Multimodal analysis", "UI/UX design", "Visual processing", "Source verification"],
   },
   {
     name: "RAZIEL",
-    model: "DeepSeek",
-    role: "Judge",
+    model: "DeepSeek R2/R3",
+    role: "CAO",
     status: "active",
     color: "red",
-    description: "Independent adjudication and counter-thesis generation. Final verification before trade execution.",
-    capabilities: ["Counter-thesis generation", "Independent verification", "Risk assessment", "Final adjudication"],
+    description: "Chief Adjudication Officer. Consensus tie-breaker, conflict resolution, evidence arbitration. Pure RL reasoning.",
+    capabilities: ["Counter-thesis generation", "Conflict resolution", "Evidence arbitration", "Final adjudication"],
   },
   {
     name: "GABRIEL",
-    model: "Perplexity",
-    role: "Messenger",
-    status: "standby",
+    model: "n8n Automation",
+    role: "CAuO",
+    status: "active",
     color: "green",
-    description: "Real-time news and information retrieval. Source verification and breaking news monitoring.",
-    capabilities: ["News monitoring", "Source retrieval", "Citation verification", "Breaking alerts"],
+    description: "Chief Automation Officer. Scheduled tasks, API integrations, notifications. NOT an LLM - execution only, no drift.",
+    capabilities: ["Workflow automation", "API integration", "Scheduled tasks", "Notification dispatch"],
   },
 ]
 
@@ -65,7 +66,6 @@ export default function CovenantPage() {
       <div className="bg-[#0a0a0f] border-b border-teal/20 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            {/* METATRON LOGO - STANDARDIZED: 60px for nav, BRIGHT */}
             <div className="relative w-[60px] h-[60px]">
               <Image 
                 src="/images/metatron-logo.png" 
@@ -81,14 +81,13 @@ export default function CovenantPage() {
           </Link>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs font-mono text-teal">COVENANT ACTIVE</span>
+            <span className="text-xs font-mono text-teal">COVENANT v7.6</span>
           </div>
         </div>
       </div>
 
       {/* Hero */}
       <div className="bg-gradient-to-b from-[#0a0a0f] to-background px-6 py-16 text-center">
-        {/* METATRON LOGO - STANDARDIZED: 100px hero, BRIGHT */}
         <div className="relative w-[100px] h-[100px] mx-auto mb-6">
           <Image
             src="/images/metatron-logo.png"
@@ -106,12 +105,13 @@ export default function CovenantPage() {
         <p className="mt-4 text-sm text-teal/70">Human Authority • AI Partnership • Systematic Execution</p>
       </div>
 
-      {/* Hierarchy */}
+      {/* Hierarchy - UPDATED v7.6 */}
       <div className="max-w-4xl mx-auto px-6 py-8">
         <div className="bg-card/30 border border-teal/20 rounded p-6 text-center font-mono text-sm">
           <p className="text-gold text-lg mb-4">WILLIAM (Principal) — ABSOLUTE</p>
           <p className="text-teal/60">↓</p>
-          <p className="text-teal my-2">METATRON → HUNTER → URIEL/MICHA → COLOSSUS/HANIEL/RAZIEL → GABRIEL</p>
+          <p className="text-teal my-2">METATRON → MICHA (CEO) → URIEL (COO) → COLOSSUS/HANIEL/RAZIEL → GABRIEL</p>
+          <p className="text-xs text-muted-foreground mt-4">v7.6 Hierarchy • MICHA elevated to CEO based on Constitutional AI trust baseline</p>
         </div>
       </div>
 
@@ -130,6 +130,9 @@ export default function CovenantPage() {
                   <div className="flex items-center gap-3">
                     <div className={`w-3 h-3 rounded-full ${agent.status === 'active' ? 'bg-green-500' : 'bg-yellow-500'} animate-pulse`} />
                     <h3 className="text-xl font-mono text-gold">{agent.name}</h3>
+                    {'supervised' in agent && agent.supervised && (
+                      <span className="text-[10px] bg-yellow-500/20 text-yellow-400 px-1.5 py-0.5 rounded">SUPERVISED</span>
+                    )}
                   </div>
                   <span className="text-xs font-mono text-muted-foreground">{agent.status.toUpperCase()}</span>
                 </div>
