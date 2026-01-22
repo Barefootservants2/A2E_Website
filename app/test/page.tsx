@@ -111,9 +111,10 @@ export default function TestPage() {
     componentTests.push(await runTest('Footer Links', async () => {
       const footer = document.querySelector('footer')
       const links = footer?.querySelectorAll('a')
+      const linkCount = links?.length ?? 0
       return { 
-        pass: links && links.length >= 3, 
-        message: `Footer has ${links?.length || 0} links` 
+        pass: linkCount >= 3, 
+        message: `Footer has ${linkCount} links` 
       }
     }))
 
@@ -304,7 +305,7 @@ export default function TestPage() {
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-xs font-mono text-gold">🧪 TEST HARNESS</span>
-            <span className="text-xs font-mono text-teal/60">METATRON v7.7</span>
+            <span className="text-xs font-mono text-teal/60">METATRON v8.0</span>
           </div>
         </div>
       </div>
@@ -420,7 +421,7 @@ export default function TestPage() {
       {/* Footer */}
       <footer className="border-t border-teal/20 py-6 text-center text-sm text-muted-foreground mt-8">
         <p>© 2026 Ashes2Echoes LLC. Test Harness v1.0</p>
-        <p className="text-xs text-foreground/40 mt-1">METATRON v7.7 | 16 Gates | 14 HUNTER</p>
+        <p className="text-xs text-foreground/40 mt-1">METATRON v8.0 | 18 Gates | 20 HUNTER</p>
       </footer>
     </main>
   )
