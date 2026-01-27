@@ -450,6 +450,29 @@ export function DashboardCards() {
               </div>
             </HUDPanel>
 
+            {/* ARMORY Panel */}
+            <HUDPanel title="ARMORY" subtitle="Free Tools" href="/armory">
+              <div className="space-y-0.5">
+                {[
+                  { name: 'E*TRADE OAuth Debug', tag: 'NEW', status: 'active' as const },
+                  { name: 'Multi-Repo Sync', tag: '', status: 'active' as const },
+                  { name: 'Email Archive', tag: '', status: 'standby' as const },
+                ].map((tool, i) => (
+                  <div key={i} className="flex justify-between items-center py-1 border-b border-teal/10 last:border-0">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs text-foreground/90">{tool.name}</span>
+                      {tool.tag && <span className="text-[8px] bg-gold/20 text-gold px-1 rounded">{tool.tag}</span>}
+                    </div>
+                    <StatusIndicator label="" status={tool.status} />
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 pt-2 border-t border-teal/20 text-center">
+                <p className="text-[10px] text-muted-foreground/60">No signup. No strings.</p>
+                <p className="text-[9px] text-teal/60 font-mono tracking-wider mt-1">MIT LICENSE</p>
+              </div>
+            </HUDPanel>
+
             {/* STATE'S FINEST Panel */}
             <HUDPanel title="STATE'S FINEST" subtitle="Satirical Apparel">
               <div className="flex flex-col items-center justify-center h-[140px]">
